@@ -12,10 +12,12 @@ imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
 
 #look at data
 head(imdb_messy)
+str(imdb_messy)
 ```
 
 ```{r}
 # clean the data
-imdb_messy |>
-  select(Title,Rating) # select only title and rating
+imdb_cleaned <- imdb_messy |>
+  select(Title,Rating) |> # select only title and rating
+  drop_na(Title, Rating)
 ```

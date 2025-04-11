@@ -1,5 +1,62 @@
 ---
-title: "prewittEDA"
+title: "Prewitt EDA"
 format: html
 ---
 
+# Exploring the IMDb Data {.unnumbered}
+
+```{r}
+# use cleaning steps from imdbCleaning.qmd:
+# import relevant packages
+library(tidyverse)
+
+# import data
+imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
+
+# clean the data
+imdb_cleaned <- imdb_messy |>
+  select(Title,Rating) |> # select only title and rating
+  drop_na(Title, Rating)
+```
+
+Research Questions:
+
+-   What are the top 10 highest rated movies?
+
+    ```{r}
+
+    top_10_movies <- imdb_cleaned |>
+      arrange(desc(Rating)) |>
+      slice_head(n = 10)
+
+    top_10_movies
+
+    ```
+
+-   What are the bottom 10 lowest rated movies?
+
+    ```{r}
+    bottom_10_movies <- imdb_cleaned |>
+      arrange(Rating) |>
+      slice_head(n = 10)
+
+    bottom_10_movies
+
+
+    ```
+
+-   What is the distribution of scores like (how many films for each score?)?
+
+    ```{r}
+
+    imdb_cleaned |>
+      ggplot(aes(x = Rating)) +
+      geom_bar(fill = "#69b3a2") +
+      labs(
+        title = "Distribution of IMDb Movie Ratings",
+        x = "Rating",
+        y = "Number of Movies"
+      ) +
+      theme_minimal()
+    ```
+# Exploring the Letterboxd Data {.unnumbered}
