@@ -35,7 +35,7 @@ deliverables when building the plan. The plan should be presented in a
 table format.
 
 | Task | Assigned To | Due Date |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | ~~Project Proposal~~ | ~~Both~~ | ~~4/9~~ |
 | ~~Case Study~~ | ~~Both~~ | ~~4/9~~ |
 | ~~Teamwork Reading~~ | ~~Both, Indiv.~~ | ~~4/11~~ |
