@@ -38,15 +38,20 @@ book:
   chapters:
     - index.qmd
     
-  - part: "Processing Data"
+  - part: "EDA"
     chapters:
-    - processing/imdbCleaning.qmd
+    - dataExploration/JPEDA.qmd
+    - dataExploration/CLEDA.qmd
+
+  - part: "Effective Teamwork"
+    chapters:
+    - effectiveTeamwork/JP.qmd
+    - effectiveTeamwork/CL.qmd
     
-  appendices:
-  - src/appx/proposal.qmd
-  - src/appx/case-study.qmd
-  - src/appx/JP.qmd
-  - src/appx/CL.qmd
+  - part: "Appendices":
+    chapters:
+    - src/appx/proposal.qmd
+    - src/appx/case-study.qmd
 
 format:
   html:
