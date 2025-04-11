@@ -1,0 +1,13 @@
+---
+title: "Letterboxd Cleaning"
+format: html
+---
+```{r}
+library(tidyverse) 
+letterboxd_data |>
+  head()
+
+letterboxd_data |>
+  mutate(rating_numerical = fct_recode(Rating, "★★★★★" = "5", "★★★★½" = "4.5", "★★★★" = "4", "★★★½" = "3.5", "★★★" = "3", "★★½" = "2.5", "★★" = "2", "★½" = "1.5", "★" = "1", "½" = "1/2"))
+```
+

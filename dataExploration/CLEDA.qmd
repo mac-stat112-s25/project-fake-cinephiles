@@ -1,5 +1,33 @@
 ---
-title: "CLEDA"
+title: "Colette's EDA"
 format: html
 ---
+
+```{r}
+library(tidyverse)
+letterboxd_data <-
+read_csv("/Users/colettelawler/Desktop/letterboxd_250movie_reviews.csv") 
+imdb_data <-
+read_csv("/Users/colettelawler/Desktop/imdb_movie_dataset.csv")
+```
+
+```{r}
+library(DataExplorer)
+introduce(letterboxd_data)
+
+introduce(imdb_data)
+
+plot_bar(letterboxd_data)
+
+plot_histogram(imdb_data)
+
+plot_missing(letterboxd_data)
+```
+```{r}
+library(SmartEDA)
+ExpData(letterboxd_data)
+ExpData(imdb_data)
+```
+
+
 
