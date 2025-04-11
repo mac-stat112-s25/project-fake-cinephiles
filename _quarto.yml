@@ -42,6 +42,8 @@ book:
       chapters:
       - dataExploration/JPEDA.qmd
       - dataExploration/CLEDA.qmd
+      - dataExploration/imdbCleaning.qmd
+      - dataExploration/letterboxdCleaning.qmd
 
     - part: "Effective Teamwork"
       chapters:
