@@ -11,8 +11,8 @@ project:
 
 
 book:
-  title: "project title"
-  author: ["student 1 first and last name", "student 2 first and last name", "student 3 first and last name"]
+  title: "Lights, Camera, Action!: Comparing Movie Reviewing Website Ratings"
+  author: ["Colette Lawler", "Julia Prewitt"]
   date: today  # use today to update date published based on last time project was edited
   date-format: full
   # favicon: images/logo.png
@@ -29,7 +29,7 @@ book:
 
 
   sidebar:
-    title: "sidebar title"
+    title: "Lawler & Prewitt Final Project"
     collapse-level: 2
     style: "docked"
     pinned: true
@@ -38,20 +38,19 @@ book:
   chapters:
     - index.qmd
     
-  - part: "EDA"
-    chapters:
-    - dataExploration/JPEDA.qmd
-    - dataExploration/CLEDA.qmd
+    - part: "EDA"
+      chapters:
+      - dataExploration/JPEDA.qmd
+      - dataExploration/CLEDA.qmd
 
-  - part: "Effective Teamwork"
-    chapters:
-    - effectiveTeamwork/JP.qmd
-    - effectiveTeamwork/CL.qmd
+    - part: "Effective Teamwork"
+      chapters:
+      - effectiveTeamwork/JP.qmd
+      - effectiveTeamwork/CL.qmd
     
-  - part: "Appendices":
-    chapters:
-    - src/appx/proposal.qmd
-    - src/appx/case-study.qmd
+  appendices:
+  - src/appx/proposal.qmd
+  - src/appx/case-study.qmd
 
 format:
   html:
