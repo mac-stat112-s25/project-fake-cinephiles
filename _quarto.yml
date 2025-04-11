@@ -37,14 +37,16 @@ book:
 
   chapters:
     - index.qmd
-
+    
+  - part: "Processing Data"
+    chapters:
+    - processing/imdbCleaning.qmd
+    
   appendices:
   - src/appx/proposal.qmd
   - src/appx/case-study.qmd
   - src/appx/JP.qmd
   - src/appx/CL.qmd
-
-
 
 format:
   html:
