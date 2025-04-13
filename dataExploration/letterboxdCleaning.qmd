@@ -7,7 +7,23 @@ library(tidyverse)
 letterboxd_data |>
   head()
 
+letterboxd_clean <-
 letterboxd_data |>
-  mutate(rating_numerical = fct_recode(Rating, "★★★★★" = "5", "★★★★½" = "4.5", "★★★★" = "4", "★★★½" = "3.5", "★★★" = "3", "★★½" = "2.5", "★★" = "2", "★½" = "1.5", "★" = "1", "½" = "1/2"))
+  mutate(numerical_rating = fct_recode(Rating, "5" = "★★★★★",
+                                       "4.5" = "★★★★½", 
+                                        "4" = "★★★★",
+                                       "3.5" = "★★★½",
+                                        "3" = "★★★",
+                                        "2.5" = "★★½", 
+                                        "2" = "★★",
+                                       "1.5" =  "★½",
+                                        "1" = "★",
+                                       ".5" = "½"))
+```
+```{r}
+letterboxd_clean |>
+  filter(!is.na(numerical_rating)) |>
+  group_by(Movie) |>
+  mutate(out_of_ten = (as.numeric(numerical_rating)) *2) 
 ```
 
