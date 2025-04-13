@@ -10,13 +10,22 @@ format: html
 # import relevant packages
 library(tidyverse)
 
-# import data
-imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
+# load the datasets
+title_basics <- read_tsv("../data/title.basics.tsv", na = "\\N", quote = "")
+title_ratings <- read_tsv("../data/title.ratings.tsv", na = "\\N", quote = "")
 
-# clean the data
-imdb_cleaned <- imdb_messy |>
-  select(Title,Rating) |> # select only title and rating
-  drop_na(Title, Rating)
+```{r}
+# select only movies from the titles 
+movies <- title_basics %>%
+  filter(titleType == "movie")
+
+# merge the datasets
+movie_ratings <- movies %>%
+  inner_join(title_ratings, by = "tconst")
+
+# select only relevant columns
+imdb_cleaned <- movie_ratings %>%
+  select(primaryTitle, averageRating)
 ```
 
 Research Questions:

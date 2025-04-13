@@ -26,7 +26,13 @@ movie_ratings <- movies %>%
   inner_join(title_ratings, by = "tconst")
 
 # select only relevant columns
-final_dataset <- movie_ratings %>%
-  select(primaryTitle, averageRating)
+imdb_cleaned <- movie_ratings %>%
+  select(Title = primaryTitle, Rating = averageRating)
+
+```
+
+```{r}
+# save cleaned data to csv to save space on device
+write_csv(imdb_cleaned, "../data/cleaned_imdb.csv")
 
 ```
