@@ -27,7 +27,7 @@ letterboxd_convertStars <-letterboxd_data |>
 ```
 
 ```{r}
-#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5
+#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5, make movie titles spaced out and not dashes
 letterboxd_clean <- letterboxd_convertStars |>
   filter(!is.na(numerical_rating)) |>
   mutate(
@@ -37,7 +37,10 @@ letterboxd_clean <- letterboxd_convertStars |>
   summarise(
     avg_rating = mean(out_of_ten, na.rm = TRUE),
   ) |> 
-arrange(desc(avg_rating))
+arrange(desc(avg_rating)) |>
+  mutate(movie_titles = str_replace_all(Movie, "-", " ")) |>
+  select(movie_titles, avg_rating)
+
 
 ```
 
