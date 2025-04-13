@@ -7,6 +7,7 @@ format: html
 ```{r}
 library(tidyverse)
 library(stringr)
+library(fuzzyjoin)
 
 # import data
 imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
@@ -45,27 +46,26 @@ arrange(desc(avg_rating))
 #Alter the IMDb titles to match the formatting of the letterboxd data, update letterboxd column name {.unnumbered}
 ```{r}
 imdb_cleaned_standardized <- imdb_cleaned |>
-  mutate(Title = Title |> 
-           str_to_lower() |>         # make lowercase
-           str_replace_all(" ", "-") |> # replace spaces with hyphens
-           str_replace_all("[^a-z0-9\\-]", "")  # remove punctuation
-         )
+  mutate(
+    Title = Title |>
+      str_to_lower() |>                          # lowercase
+      str_replace_all("&", "and") |>             # replace '&' with 'and'
+      str_replace_all("[^a-z0-9 ]", "") |>        # remove all punctuation
+      str_squish() |>                            # remove extra spaces
+      str_replace_all(" ", "-")                  # finally, replace space with hyphen
+  )
 
 letterboxd_clean_renamed <- letterboxd_clean |>
   rename(Title = Movie)
 
 ```
 
-# Join datasets {.unnumbered}
+
+# Import Mapping File to Merge {.unnumbered}
+created a manual title mapping file to help handle differences in names
 
 ```{r}
-merged_ratings <- inner_join(letterboxd_clean_renamed, imdb_cleaned_standardized, by = "Title") |>
-  rename(
-    letterboxd_score = avg_rating,
-    imdb_score = Rating
-  )
 
-head(merged_ratings)
 ```
 
 
