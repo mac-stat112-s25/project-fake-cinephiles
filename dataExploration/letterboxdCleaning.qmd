@@ -4,11 +4,16 @@ format: html
 ---
 ```{r}
 library(tidyverse) 
+
+# import data from data folder of repo
+letterboxd_data <- read_csv("..\\data\\letterboxd_250movie_reviews.csv")
+
 letterboxd_data |>
   head()
+```
 
-letterboxd_clean <-
-letterboxd_data |>
+```{r}
+letterboxd_convertStars <-letterboxd_data |>
   mutate(numerical_rating = fct_recode(Rating, "5" = "★★★★★",
                                        "4.5" = "★★★★½", 
                                         "4" = "★★★★",
@@ -20,10 +25,24 @@ letterboxd_data |>
                                         "1" = "★",
                                        ".5" = "½"))
 ```
+
 ```{r}
-letterboxd_clean |>
+#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5
+letterboxd_clean <- letterboxd_convertStars |>
   filter(!is.na(numerical_rating)) |>
+  mutate(
+    numerical_rating = as.numeric(as.character(numerical_rating)),
+    out_of_ten = numerical_rating *2) |>
   group_by(Movie) |>
-  mutate(out_of_ten = (as.numeric(numerical_rating)) *2) 
+  summarise(
+    avg_rating = mean(out_of_ten, na.rm = TRUE),
+  ) |> 
+arrange(desc(avg_rating))
+
+```
+
+```{r}
+# preview code
+head(letterboxd_clean)
 ```
 
