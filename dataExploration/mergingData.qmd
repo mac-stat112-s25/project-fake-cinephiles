@@ -9,13 +9,15 @@ library(tidyverse)
 library(stringr)
 library(fuzzyjoin)
 
-# import data
-imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
+# load the newly imdb dataset which has been cleaned 
+imdb_cleaned <-read_csv("../data/cleaned_imdb.csv")
 
-# clean the data
-imdb_cleaned <- imdb_messy |>
-  select(Title,Rating) |> # select only title and rating
-  drop_na(Title, Rating)
+# fix issue of multliple listings for same film by averaging scores: 
+imdb_cleaned_avg <- imdb_cleaned %>%
+  group_by(Title) %>%
+  summarise(Rating = mean(Rating, na.rm = TRUE)) %>%
+  ungroup()
+
 
 # import data
 letterboxd_data <- read_csv("..\\data\\letterboxd_250movie_reviews.csv")
@@ -43,21 +45,27 @@ letterboxd_clean <- letterboxd_convertStars |>
   ) |> 
 arrange(desc(avg_rating))
 ```
-#Alter the IMDb titles to match the formatting of the letterboxd data, update letterboxd column name {.unnumbered}
-```{r}
-
-
-letterboxd_clean_renamed <- letterboxd_clean |>
-  rename(Title = Movie)
-
-```
-
-
-# Import Mapping File to Merge {.unnumbered}
+# Import Mapping File & Merge {.unnumbered}
 created a manual title mapping file to help handle differences in names
 
 ```{r}
+title_map <- read_csv("../data/title_mapping.csv", locale = locale(encoding = "latin1"))
 
+# Clean both sets of titles
+title_map_cleaned <- title_map %>%
+  mutate(imdb_title = str_trim(str_to_lower(imdb_title)))
+
+imdb_cleaned_avg_cleaned <- imdb_cleaned_avg %>%
+  mutate(Title = str_trim(str_to_lower(Title)))
+
+# Join the mapping to the IMDb data by IMDb title
+imdb_mapped <- title_map |>
+  left_join(imdb_cleaned_avg, by = c("imdb_title" = "Title")) |>
+  select(letterboxd_title, Rating) |> 
+  rename(Title = letterboxd_title)
+
+# Preview the joined data
+head(imdb_mapped)
 ```
 
 

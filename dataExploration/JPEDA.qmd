@@ -6,26 +6,13 @@ format: html
 # Exploring the IMDb Data {.unnumbered}
 
 ```{r}
-# use cleaning steps from imdbCleaning.qmd:
+
 # import relevant packages
 library(tidyverse)
 
-# load the datasets
-title_basics <- read_tsv("../data/title.basics.tsv", na = "\\N", quote = "")
-title_ratings <- read_tsv("../data/title.ratings.tsv", na = "\\N", quote = "")
+# load the newly imdb dataset which has been cleaned 
+imdb_cleaned <-read_csv("../data/cleaned_imdb.csv")
 
-```{r}
-# select only movies from the titles 
-movies <- title_basics %>%
-  filter(titleType == "movie")
-
-# merge the datasets
-movie_ratings <- movies %>%
-  inner_join(title_ratings, by = "tconst")
-
-# select only relevant columns
-imdb_cleaned <- movie_ratings %>%
-  select(primaryTitle, averageRating)
 ```
 
 Research Questions:
