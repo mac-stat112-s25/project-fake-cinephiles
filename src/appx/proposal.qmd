@@ -35,13 +35,12 @@ deliverables when building the plan. The plan should be presented in a
 table format.
 
 | Task | Assigned To | Due Date |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | ~~Project Proposal~~ | ~~Both~~ | ~~4/9~~ |
 | ~~Case Study~~ | ~~Both~~ | ~~4/9~~ |
 | ~~Teamwork Reading~~ | ~~Both, Indiv.~~ | ~~4/11~~ |
 | Clarify research question, background, data collection, | Julia | 4/11 |
-| Clean and Explore IMDB Data | Julia | 4/14 |
-| Clean and Explore Letterboxd Data | Colette | 4/14 |
+| EDA - Individual | Both | 4/14 |
 | Join and Explore data | Both | 4/16 |
 | Decide on appropriate viz | Both | 4/18 |
 | Create viz | Both | 4/21 |
