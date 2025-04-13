@@ -90,4 +90,46 @@ arrange(desc(avg_rating))
 
 ```
 
+Research Questions:
+
+-   What are the top 10 highest rated movies?
+
+    ```{r}
+
+    top_10_movies <- letterboxd_clean |>
+      arrange(desc(avg_rating)) |>
+      slice_head(n = 10)
+
+    top_10_movies
+
+    ```
+
+-   What are the bottom 10 lowest rated movies (of the top 250)?
+
+    ```{r}
+    bottom_10_movies <- letterboxd_clean |>
+      arrange(avg_rating) |>
+      slice_head(n = 10)
+
+    bottom_10_movies
+
+
+    ```
+
+-   What is the distribution of scores like (how many films for each score?)?
+
+    ```{r}
+
+letterboxd_clean %>%
+  ggplot(aes(x = avg_rating)) +
+  geom_histogram(binwidth = 0.5, fill = "#69b3a2", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Letterboxd Top 250 Movie Ratings",
+    x = "Rating",
+    y = "Number of Movies"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, 10, 1)) # Adjust x-axis breaks
+
+    ```
 
