@@ -1,14 +1,12 @@
 ---
-title: "Prewitt EDA"
+title: "Combining the Letterboxd and IMDb Datasets"
 format: html
 ---
 
-# Exploring the IMDb Data {.unnumbered}
-
+# Import datasets and clean them using steps established in cleaning files {.unnumbered}
 ```{r}
-# use cleaning steps from imdbCleaning.qmd:
-# import relevant packages
 library(tidyverse)
+library(stringr)
 
 # import data
 imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
@@ -17,54 +15,6 @@ imdb_messy <- read_csv("..\\data\\imdb_movie_dataset.csv")
 imdb_cleaned <- imdb_messy |>
   select(Title,Rating) |> # select only title and rating
   drop_na(Title, Rating)
-```
-
-Research Questions:
-
--   What are the top 10 highest rated movies?
-
-    ```{r}
-
-    top_10_movies <- imdb_cleaned |>
-      arrange(desc(Rating)) |>
-      slice_head(n = 10)
-
-    top_10_movies
-
-    ```
-
--   What are the bottom 10 lowest rated movies?
-
-    ```{r}
-    bottom_10_movies <- imdb_cleaned |>
-      arrange(Rating) |>
-      slice_head(n = 10)
-
-    bottom_10_movies
-
-
-    ```
-
--   What is the distribution of scores like (how many films for each score?)?
-
-    ```{r}
-
-    imdb_cleaned |>
-      ggplot(aes(x = Rating)) +
-      geom_bar(fill = "#69b3a2") +
-      labs(
-        title = "Distribution of IMDb Movie Ratings",
-        x = "Rating",
-        y = "Number of Movies"
-      ) +
-      theme_minimal()
-    ```
-
-# Exploring the Letterboxd Data {.unnumbered}
-```{r}
-# use cleaning steps from letterboxdCleaning.qmd:
-# import relevant packages
-library(tidyverse)
 
 # import data
 letterboxd_data <- read_csv("..\\data\\letterboxd_250movie_reviews.csv")
@@ -91,7 +41,32 @@ letterboxd_clean <- letterboxd_convertStars |>
     avg_rating = mean(out_of_ten, na.rm = TRUE),
   ) |> 
 arrange(desc(avg_rating))
+```
+#Alter the IMDb titles to match the formatting of the letterboxd data, update letterboxd column name {.unnumbered}
+```{r}
+imdb_cleaned_standardized <- imdb_cleaned |>
+  mutate(Title = Title |> 
+           str_to_lower() |>         # make lowercase
+           str_replace_all(" ", "-") |> # replace spaces with hyphens
+           str_replace_all("[^a-z0-9\\-]", "")  # remove punctuation
+         )
+
+letterboxd_clean_renamed <- letterboxd_clean |>
+  rename(Title = Movie)
 
 ```
+
+# Join datasets {.unnumbered}
+
+```{r}
+merged_ratings <- inner_join(letterboxd_clean_renamed, imdb_cleaned_standardized, by = "Title") |>
+  rename(
+    letterboxd_score = avg_rating,
+    imdb_score = Rating
+  )
+
+head(merged_ratings)
+```
+
 
 
