@@ -12,92 +12,65 @@ library(fuzzyjoin)
 # Load the newly cleaned IMDb dataset
 imdb_cleaned <- read_csv("../data/cleaned_imdb.csv")
 
-# Fix issue of multiple listings for the same film by averaging scores:
-imdb_cleaned_avg <- imdb_cleaned %>%
-  group_by(Title) %>%
-  summarise(Rating = mean(Rating, na.rm = TRUE)) %>%
-  ungroup()
+# lowercase the imdb titles
+imdb_lower <- imdb_cleaned |>
+  mutate(Title = str_to_lower(Title))
+
+# --------------------------------------------------------------------
 
 # Import the Letterboxd dataset
 letterboxd_data <- read_csv("..\\data\\letterboxd_250movie_reviews.csv")
 
-# Convert star ratings to numerical scale for Letterboxd
-letterboxd_convertStars <- letterboxd_data %>%
+letterboxd_convertStars <-letterboxd_data |>
   mutate(numerical_rating = fct_recode(Rating, "5" = "★★★★★",
                                        "4.5" = "★★★★½", 
-                                       "4" = "★★★★",
+                                        "4" = "★★★★",
                                        "3.5" = "★★★½",
-                                       "3" = "★★★",
-                                       "2.5" = "★★½", 
-                                       "2" = "★★",
-                                       "1.5" = "★½",
-                                       "1" = "★",
+                                        "3" = "★★★",
+                                        "2.5" = "★★½", 
+                                        "2" = "★★",
+                                       "1.5" =  "★½",
+                                        "1" = "★",
                                        ".5" = "½"))
 
-# Clean Letterboxd data by calculating the average rating
-letterboxd_clean <- letterboxd_convertStars %>%
-  filter(!is.na(numerical_rating)) %>%
+#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5, make movie titles spaced out and not dashes
+letterboxd_clean <- letterboxd_convertStars |>
+  filter(!is.na(numerical_rating)) |>
   mutate(
     numerical_rating = as.numeric(as.character(numerical_rating)),
-    out_of_ten = numerical_rating * 2) %>%
-  group_by(Movie) %>%
+    out_of_ten = numerical_rating *2) |>
+  group_by(Movie) |>
   summarise(
-    avg_rating = mean(out_of_ten, na.rm = TRUE)
-  ) %>%
-  arrange(desc(avg_rating))
+    avg_rating = mean(out_of_ten, na.rm = TRUE),
+  ) |> 
+arrange(desc(avg_rating)) |>
+  mutate(movie_titles = str_replace_all(Movie, "-", " ")) |>
+  select(movie_titles, avg_rating)
+
 ```
-# Import Mapping File & Merge {.unnumbered}
-created a manual title mapping file to help handle differences in names
+# Merge Files {.unnumbered}
 
 ```{r}
-title_map <- read_csv("../data/title_mapping.csv", locale = locale(encoding = "latin1"))
-
-# Define a function to clean the titles
-clean_title <- function(x) {
-  x %>%
-    str_to_lower() %>%
-    str_replace_all("[^a-z0-9 ]", " ") %>%  # Replace non-alphanumeric characters with spaces
-    str_squish()  # Remove extra spaces
-}
-
-# Clean the IMDb dataset titles
-imdb_cleaned_avg_cleaned <- imdb_cleaned_avg %>%
-  mutate(
-    Title = clean_title(Title)
-  )
-
-# Clean the title map similarly
-title_map_cleaned <- title_map %>%
-  mutate(
-    imdb_title = clean_title(imdb_title),
-    letterboxd_title = clean_title(str_replace_all(letterboxd_title, "-", " "))  # Replace hyphens with spaces in Letterboxd titles
-  )
-
-# Add IMDb data to the mapping
-imdb_mapped <- title_map_cleaned %>%
-  left_join(imdb_cleaned_avg_cleaned, by = c("imdb_title" = "Title")) %>%
-  select(letterboxd_title, Rating) %>%
-  rename(Title = letterboxd_title)
 
 # Merge Letterboxd and IMDb data
-final_merged <- letterboxd_clean %>%
-  rename(Title = Movie, letterboxd_score = avg_rating) %>%
-  left_join(imdb_mapped, by = "Title") %>%
+final_merged <- letterboxd_clean |>
+  rename(Title = movie_titles, letterboxd_score = avg_rating) |>
+  left_join(imdb_lower, by = "Title") |>
   rename(imdb_score = Rating)
 
-# How many rows matched now?
+# -------------------- Checks ----------------------------------
+
+# How many rows matched
 nrow(final_merged)
 
-# How many are missing IMDb scores?
+# How many are missing IMDb scores
 sum(is.na(final_merged$imdb_score))
+
+# Check how many matches exist between IMDb and the rest of the data
+sum(!is.na(final_merged$imdb_score))
 
 # Preview of the merged data
 head(final_merged)
-
-# Check how many matches exist between IMDb and the cleaned title map
-sum(!is.na(final_merged$imdb_score))
-
-
 ```
 
 
