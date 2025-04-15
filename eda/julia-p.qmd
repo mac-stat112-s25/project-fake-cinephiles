@@ -133,3 +133,52 @@ letterboxd_clean %>%
 
     ```
 
+# Exploring the Merged Data {.unnumbered}
+
+```{r}
+# Import the merged dataset (created in the mergingData file!)
+# import data
+merged_data <- read_csv("..\\data\\merged_data")
+
+# clean of the 4 NA values
+merged_data <- merged_data |>
+  drop_na()
+
+```
+Exploring the data:
+```{r}
+head(merged_data)
+
+str(merged_data)
+
+summary(merged_data)
+```
+
+```{r}
+# Distribution of IMDb and Letterboxd scores
+ggplot(merged_data, aes(x = imdb_score)) + 
+  geom_histogram(binwidth = 0.5, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of IMDb Scores")
+
+ggplot(merged_data, aes(x = letterboxd_score)) + 
+  geom_histogram(binwidth = 0.5, fill = "green", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Letterboxd Scores")
+
+# relationshihp
+ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "IMDb vs Letterboxd Scores")
+
+# Boxplot to check for outliers in scores
+ggplot(merged_data, aes(y = imdb_score)) + 
+  geom_boxplot(fill = "lightblue", color = "black") + 
+  labs(title = "Boxplot of IMDb Scores")
+
+ggplot(merged_data, aes(y = letterboxd_score)) + 
+  geom_boxplot(fill = "lightgreen", color = "black") + 
+  labs(title = "Boxplot of Letterboxd Scores")
+
+
+```
+
