@@ -36,9 +36,9 @@ table format.
 
 | Task | Assigned To | Due Date |
 |----|----|----|
-| ~~Project Proposal~~ | ~~Both~~ | ~~4/9~~ |
-| ~~Case Study~~ | ~~Both~~ | ~~4/9~~ |
-| ~~Teamwork Reading~~ | ~~Both, Indiv.~~ | ~~4/11~~ |
+| Project Proposal | Both | 4/9 |
+| Case Study | Both | 4/9 |
+| Teamwork Reading | Both, Indiv. | 4/11 |
 | Clarify research question, background, data collection, | Julia | 4/11 |
 | EDA - Individual | Both | 4/14 |
 | Join and Explore data | Both | 4/16 |

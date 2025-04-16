@@ -57,6 +57,7 @@ Research Questions:
     ```
 
 # Exploring the Letterboxd Data {.unnumbered}
+
 ```{r}
 # use cleaning steps from letterboxdCleaning.qmd:
 # import relevant packages
@@ -120,16 +121,16 @@ Research Questions:
 
     ```{r}
 
-letterboxd_clean %>%
-  ggplot(aes(x = avg_rating)) +
-  geom_histogram(binwidth = 0.5, fill = "#69b3a2", color = "black", alpha = 0.7) +
-  labs(
+    letterboxd_clean %>%
+      ggplot(aes(x = avg_rating)) +
+      geom_histogram(binwidth = 0.5, fill = "#69b3a2", color = "black", alpha = 0.7) +
+      labs(
     title = "Distribution of Letterboxd Top 250 Movie Ratings",
     x = "Rating",
     y = "Number of Movies"
-  ) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(0, 10, 1)) # Adjust x-axis breaks
+      ) +
+      theme_minimal() +
+      scale_x_continuous(breaks = seq(0, 10, 1)) # Adjust x-axis breaks
 
     ```
 
@@ -145,7 +146,9 @@ merged_data <- merged_data |>
   drop_na()
 
 ```
+
 Exploring the data:
+
 ```{r}
 head(merged_data)
 
@@ -181,4 +184,3 @@ ggplot(merged_data, aes(y = letterboxd_score)) +
 
 
 ```
-

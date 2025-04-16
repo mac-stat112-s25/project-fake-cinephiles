@@ -13,53 +13,77 @@ Your report will go here.
 
 # Motivation {.unnumbered}
 
-    What is the story behind the project?
-    Why were you interested in the project?
-    What were you motivation?
-    Why is the project important?
+Colette and I both utilize Letterboxd and enjoy films; we both are aware that the typical Letterboxd user tends to be a "cinephile", trending towards a movie snob rather than a casual enjoyer.
+People may be surprised by a low Letterboxd average score for a film, but we both take it with a grain of salt because Letterboxd users often do not rate movies very high despite enjoying it.
+However, is the idea of Letterboxd actually rating films lower than other rating websites true, or is this a bias we have that is only founded on the perceived culture of the app?
+It is with this in mind we hope to explore top films' ratings on Letterboxd and IMDb to compare if Letterboxd actually rates them lower than the more popular site.
+This information would help to better understand the culture of both rating sites, and help those looking at movie ratings better understand the rating of a film in context.
 
 # Research Question {.unnumbered}
 
-    What research question(s) are you trying to answer?
-    What are the key goals of the project?
-    What ideas do you most want to communicate?
+How do average Letterboxd scores compare to average IMDb scores for top films?
+Does Letterboxd rate films lower than IMDb?
+
+Our goal is to determine if the perceived culture of Letterboxd actually translates to how people rate films.
+We hope to communicate information about typical ratings patterns on each website to help users make more informed movie selections.
 
 # Background {.unnumbered}
 
-    What background information is necessary for target audience to understand?
-    What assumptions, terms, and/or acronyms need to be clarified?
+```         
+What background information is necessary for target audience to understand?
+What assumptions, terms, and/or acronyms need to be clarified?
+```
 
 # Data {.unnumbered}
 
-    Data collection
-        What was collected?
-        When was it collected?
-        Why was it collected?
-        How was it collected originally?
-        Who collected it?
-    Data acquisition
-        Where / how did you get the data?
-        What is the source?
-    Data understanding
-        How much data do you have?
-        What types of measurements?
-        Anything you needed to clean before getting started?
+### Letterboxd Data {.unnumbered}
+
+[Link to Kaggle Page](https://www.kaggle.com/datasets/riyosha/letterboxd-movie-reviews-90000)
+
+This data was collected from the Letterboxd official top 250 movies page and then scraped using selenium and beautiful soup as of 4/09/24
+
+### IMDb Data {.unnumbered}
+
+[Link to Kaggle Page](https://www.kaggle.com/datasets/yusufdelikkaya/imdb-movie-dataset)
+
+```         
+Data collection
+    What was collected?
+    When was it collected?
+    Why was it collected?
+    How was it collected originally?
+    Who collected it?
+Data acquisition
+    Where / how did you get the data?
+    What is the source?
+Data understanding
+    How much data do you have?
+    What types of measurements?
+    Anything you needed to clean before getting started?
+```
 
 # Data Insights {.unnumbered}
 
-It’s your job to explicitly identify and discuss key insights. Don’t simply present the audience with some code and output and expect them to do that work. Specifically address the following questions:
+It’s your job to explicitly identify and discuss key insights.
+Don’t simply present the audience with some code and output and expect them to do that work.
+Specifically address the following questions:
 
-    What are the important takeaways from the data? What was interesting?
-    Why do these takeaways matter?
-    Was there anything surprising?
-    Overall, what do you want the audience to walk away with? What do you want them to understand about your data and research questions?
+```         
+What are the important takeaways from the data? What was interesting?
+Why do these takeaways matter?
+Was there anything surprising?
+Overall, what do you want the audience to walk away with? What do you want them to understand about your data and research questions?
+```
 
 # Conclusions / Big Picture {.unnumbered}
 
-    How do the insights connect to answer your research question(s)?
+```         
+How do the insights connect to answer your research question(s)?
+```
 
 # Limitations and Future Work {.unnumbered}
 
-    What limitations or weaknesses does your data / analysis suffer from?
-    What improvements might someone make to your analysis?
-
+```         
+What limitations or weaknesses does your data / analysis suffer from?
+What improvements might someone make to your analysis?
+```
