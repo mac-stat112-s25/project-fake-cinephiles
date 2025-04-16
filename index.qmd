@@ -3,6 +3,9 @@ title: "Final Report"
 execute: 
   echo: true      # change to true to show the code
 code-fold: false  # change to true to fold the code chunks
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
 Your report will go here.
@@ -40,27 +43,24 @@ What assumptions, terms, and/or acronyms need to be clarified?
 
 [Link to Kaggle Page](https://www.kaggle.com/datasets/riyosha/letterboxd-movie-reviews-90000)
 
-This data was collected from the Letterboxd official top 250 movies page and then scraped using selenium and beautiful soup as of 4/09/24
+This data was collected from the Letterboxd official top 250 movies page and then scraped using selenium and beautiful soup as of 4/09/24.
+It was collected by Riyosha on Kaggle, which is where we collected the data.
+The data consists of star ratings of each movie from the top 250, reviews for each rating if available, the date the movie was watched by the user, if the watch was a first-time watch or a rewatch, and the name of the movie.
+There are over 90,000 reviews overall, with about 360 reviews for each movie.
+There are both categorical and numerical measurements.
+Before we start, we need to convert the star ratings to decimals, and make each rating out of 10 to match the IMDb rating.
+There are also some NA values that need to be cleaned up.
 
 ### IMDb Data {.unnumbered}
 
 [Link to Kaggle Page](https://www.kaggle.com/datasets/yusufdelikkaya/imdb-movie-dataset)
 
-```         
-Data collection
-    What was collected?
-    When was it collected?
-    Why was it collected?
-    How was it collected originally?
-    Who collected it?
-Data acquisition
-    Where / how did you get the data?
-    What is the source?
-Data understanding
-    How much data do you have?
-    What types of measurements?
-    Anything you needed to clean before getting started?
-```
+This data shows the ranking of the top 1000 movies, the title of each movie, the genre, a brief plot description, director, lead actors, year of release, runtime, rating out of ten, and user votes (how many users watched/rated).
+This data was last updated 6 months ago.
+The data was collected from the IMDb website, and licensed through public domain, and posted to Kaggle, where we found the data.
+There are 1000 data points, one for each movie.
+All variables except rating are categorical.
+We have to clean movie titles in order to match and join them with the Letterboxd data, and select only the needed variables and data points to analyze this data.
 
 # Data Insights {.unnumbered}
 
