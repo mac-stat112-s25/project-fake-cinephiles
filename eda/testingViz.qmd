@@ -53,13 +53,8 @@ fig <- plot_ly(data = merged_data, x = ~imdb_score, y = ~letterboxd_score,
                           width = 2)))
 
 fig <- fig |> layout(title = "Comparing IMDb and Letterboxd Film Ratings",
-    subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
-    x = "IMDb Score",
-    y = "Letterboxd Score",
-    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt",
          yaxis = list(zeroline = FALSE),
          xaxis = list(zeroline = FALSE))
-
 
 fig
 
