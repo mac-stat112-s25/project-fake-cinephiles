@@ -32,10 +32,15 @@ We hope to communicate information about typical ratings patterns on each websit
 
 # Background {.unnumbered}
 
-```         
-What background information is necessary for target audience to understand?
-What assumptions, terms, and/or acronyms need to be clarified?
-```
+Letterboxd is an app popularized in recent years, made solely for logging movie watches and reviews.
+Letterboxd scores out of five stars.
+In the app, there's a list of the top 250 movies based on average user ratings.
+In popular culture, Letterboxd is seen as a website for people who are more serious about movies, usually being tougher critics than other internet reviewers.
+
+IMDb, standing for "The Internet Movie Database", is a website displaying information about movies, including cast, year, and trivia.
+Users can also rate movies out of 10 on IMDb.
+The website has a list of the top 1000 movies rated by users.
+IMDb is a lot more popular than Letterboxd, so reviews are usually taken as a general consensus for casual movie-watchers.
 
 # Data {.unnumbered}
 
@@ -64,26 +69,24 @@ We have to clean movie titles in order to match and join them with the Letterbox
 
 # Data Insights {.unnumbered}
 
-It’s your job to explicitly identify and discuss key insights.
-Don’t simply present the audience with some code and output and expect them to do that work.
-Specifically address the following questions:
-
-```         
-What are the important takeaways from the data? What was interesting?
-Why do these takeaways matter?
-Was there anything surprising?
-Overall, what do you want the audience to walk away with? What do you want them to understand about your data and research questions?
-```
+Overall, the data gave a pretty linear conclusion: as Letterboxd scores increase, IMDb scores also tend to increase.
+There are a few outliers (that are usually rated much lower on Letterboxd than on IMDb) to this relationship.
+Most reviews were pretty positive on both ends, however, considering that the Letterboxd data we took from was the top-rated 250 movies on the site.
+Using a geom_smooth, it's clear to see the relationship is linear to a pretty mild extent, with Letterboxd ratings usually being more stagnant than IMDb ones for the movies we observed.
+We were a little surprised how similar most of the reviews seem to be on both sites, considering the cultural reputation of Letterboxd and Letterboxd users.
 
 # Conclusions / Big Picture {.unnumbered}
 
-```         
-How do the insights connect to answer your research question(s)?
-```
+For the most part, if a movie is good, both popular and more critical audiences will rate it accordingly.
+Letterboxd users, for specific movies, seem to be tougher critics, but given the popularity of the website and how many not-super-serious users rate movies, the results mostly align with IMDb opinions.
+This all seems to prove that the actual ratings of Letterboxd are usually preceded by its reputation, which is, for the most part, pretty untrue.
 
 # Limitations and Future Work {.unnumbered}
 
-```         
-What limitations or weaknesses does your data / analysis suffer from?
-What improvements might someone make to your analysis?
-```
+It was a struggle trying to merge the Letterboxd and IMDb data, since there were a lot of movies in the Letterboxd top 250 dataset that didn't have matches in the IMDb dataset, and vice versa, which didn't seem to make a lot of sense.
+This left less than 250 movies for a detailed analysis.
+Additionally, the Letterboxd data didn't guarantee the average review on the website for each movie, since it only took around 360 reviews for each movie.
+For example, we noticed "Parasite", one of the highest-rated movies on Letterboxd with a 4.5/5 rating had very low ratings in the data.
+This is a limitation of the data itself that reflected in our viz and analysis.
+Removing NA values also might have constricted our dataset and analysis.
+Future questions might include observations about if movies on Letterboxd are usually rated higher or lower based on rewatch, the average ratings of individual Letterboxd and IMDb users, and high-rated movies that are most frequently on Letterboxd users top four (a place on a profile where users can display their favorite four movies).
