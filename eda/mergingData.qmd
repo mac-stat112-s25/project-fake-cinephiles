@@ -3,6 +3,8 @@ title: "Combining the Letterboxd and IMDb Datasets"
 format: html
 ---
 
+A file to work on creating a cleaned dataset 
+
 # Import datasets and clean them using steps established in cleaning files {.unnumbered}
 ```{r}
 library(tidyverse)

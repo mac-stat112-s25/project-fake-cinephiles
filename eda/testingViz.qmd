@@ -11,16 +11,19 @@ library(ggplot2)
 library(ggthemes)
 library(showtext)
 library(plotly)
+library(ggiraph)
 
 merged_data <- read_csv("..\\data\\merged_data")
 ```
 
 ```{r}
+#| fig-height: 5
+#| fig-width: 6
 font_add_google("Lato", "lato")
 showtext_auto()
 
-ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score)) +
-  geom_jitter(alpha = 0.6, color = "#4a4a4a", size = 2) +
+attempt <- ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score, tooltip = Title)) +
+  geom_jitter_interactive(alpha = 0.6, color = "#4a4a4a", size = 2) +
   geom_smooth(method = "lm", color = "#e63946", se = FALSE, size = 1.2) +
   labs(
     title = "Comparing IMDb and Letterboxd Film Ratings",
@@ -29,7 +32,7 @@ ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score)) +
     y = "Letterboxd Score",
     caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt"
   ) +
-  theme_minimal(base_family = "lato") +
+  theme_minimal() +
   theme(
     plot.title = element_text(size = 20, face = "bold", color = "#222222"),
     plot.subtitle = element_text(size = 14, margin = margin(b = 10), color = "#555555"),
@@ -41,23 +44,6 @@ ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score)) +
   )
 
 
-```
-
-```{r}
-
-fig <- plot_ly(data = merged_data, x = ~imdb_score, y = ~letterboxd_score,
-               text = ~paste("Movie: ", Title),
-              marker = list(size = 10,
-                          color = 'rgba(255, 182, 193, .9)',
-                          line = list(color = 'rgba(152, 0, 0, .8)',
-                          width = 2)))
-
-fig <- fig |> layout(title = "Comparing IMDb and Letterboxd Film Ratings",
-         yaxis = list(zeroline = FALSE),
-         xaxis = list(zeroline = FALSE))
-
-fig
-
+girafe(ggobj = attempt)
 
 ```
-
