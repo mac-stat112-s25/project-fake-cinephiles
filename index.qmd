@@ -10,10 +10,6 @@ editor:
 
 Your report will go here.
 
-```{r}
-# this is a test code
-```
-
 # Motivation {.unnumbered}
 
 Colette and I both utilize Letterboxd and enjoy films; we both are aware that the typical Letterboxd user tends to be a "cinephile", trending towards a movie snob rather than a casual enjoyer.
@@ -32,7 +28,7 @@ We hope to communicate information about typical ratings patterns on each websit
 
 # Background {.unnumbered}
 
-Letterboxd is an app popularized in recent years, made solely for logging movie watches and reviews.
+Letterboxd is an app popularized in recent years, made for logging movie watches and reviews.
 Letterboxd scores out of five stars.
 In the app, there's a list of the top 250 movies based on average user ratings.
 In popular culture, Letterboxd is seen as a website for people who are more serious about movies, usually being tougher critics than other internet reviewers.
@@ -72,19 +68,19 @@ We have to clean movie titles in order to match and join them with the Letterbox
 Overall, the data gave a pretty linear conclusion: as Letterboxd scores increase, IMDb scores also tend to increase.
 There are a few outliers (that are usually rated much lower on Letterboxd than on IMDb) to this relationship.
 Most reviews were pretty positive on both ends, however, considering that the Letterboxd data we took from was the top-rated 250 movies on the site.
-Using a geom_smooth, it's clear to see the relationship is linear to a pretty mild extent, with Letterboxd ratings usually being more stagnant than IMDb ones for the movies we observed.
+The relationship is linear to a pretty mild extent, with Letterboxd ratings usually being more stagnant than IMDb ones for the movies we observed.
 We were a little surprised how similar most of the reviews seem to be on both sites, considering the cultural reputation of Letterboxd and Letterboxd users.
 
 # Conclusions / Big Picture {.unnumbered}
 
 For the most part, if a movie is good, both popular and more critical audiences will rate it accordingly.
-Letterboxd users, for specific movies, seem to be tougher critics, but given the popularity of the website and how many not-super-serious users rate movies, the results mostly align with IMDb opinions.
+Letterboxd users, for specific movies, seem to be tougher critics, but given the increasing popularity of the website and how many users rate movies highly, the results mostly align with IMDb opinions.
 This all seems to prove that the actual ratings of Letterboxd are usually preceded by its reputation, which is, for the most part, pretty untrue.
 
 # Limitations and Future Work {.unnumbered}
 
 It was a struggle trying to merge the Letterboxd and IMDb data, since there were a lot of movies in the Letterboxd top 250 dataset that didn't have matches in the IMDb dataset, and vice versa, which didn't seem to make a lot of sense.
-This left less than 250 movies for a detailed analysis.
+For example, I looked up all four of my top four movies in the IMDb dataset, three of which are in the Letterboxd top 250, and did not find them.
 Additionally, the Letterboxd data didn't guarantee the average review on the website for each movie, since it only took around 360 reviews for each movie.
 For example, we noticed "Parasite", one of the highest-rated movies on Letterboxd with a 4.5/5 rating had very low ratings in the data.
 This is a limitation of the data itself that reflected in our viz and analysis.
