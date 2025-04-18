@@ -6,9 +6,9 @@ format: html
 ```{r}
 library(tidyverse)
 letterboxd_data <-
-read_csv("/Users/colettelawler/Desktop/letterboxd_250movie_reviews.csv") 
+read_csv("../letterboxd_250movie_reviews.csv")
 imdb_data <-
-read_csv("/Users/colettelawler/Desktop/imdb_movie_dataset.csv")
+read_csv("../imdb_movie_dataset.csv")
 ```
 
 ```{r}

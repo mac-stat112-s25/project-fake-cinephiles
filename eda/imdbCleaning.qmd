@@ -10,29 +10,29 @@ selecting title.basics.tsv.gz and title.ratings.tsv.gz
 library(tidyverse)
 
 # load the datasets
-title_basics <- read_tsv("../data/title.basics.tsv", na = "\\N", quote = "")
-title_ratings <- read_tsv("../data/title.ratings.tsv", na = "\\N", quote = "")
+# title_basics <- read_tsv("../data/title.basics.tsv", na = "\\N", quote = "")
+# title_ratings <- read_tsv("../data/title.ratings.tsv", na = "\\N", quote = "")
 
 
 ```
 
 ```{r}
-# select only movies from the titles 
-movies <- title_basics %>%
-  filter(titleType == "movie")
-
-# merge the datasets
-movie_ratings <- movies %>%
-  inner_join(title_ratings, by = "tconst")
-
-# select only relevant columns
-imdb_cleaned <- movie_ratings %>%
-  select(Title = primaryTitle, Rating = averageRating)
+# # select only movies from the titles 
+# movies <- title_basics %>%
+#   filter(titleType == "movie")
+# 
+# # merge the datasets
+# movie_ratings <- movies %>%
+#   inner_join(title_ratings, by = "tconst")
+# 
+# # select only relevant columns
+# imdb_cleaned <- movie_ratings %>%
+#   select(Title = primaryTitle, Rating = averageRating)
 
 ```
 
 ```{r}
 # save cleaned data to csv to save space on device
-write_csv(imdb_cleaned, "../data/cleaned_imdb.csv")
+# write_csv(imdb_cleaned, "../data/cleaned_imdb.csv")
 
 ```

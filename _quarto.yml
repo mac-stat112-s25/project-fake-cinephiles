@@ -40,15 +40,17 @@ book:
     
     - part: "EDA"
       chapters:
-      - dataExploration/JPEDA.qmd
-      - dataExploration/CLEDA.qmd
-      - dataExploration/imdbCleaning.qmd
-      - dataExploration/letterboxdCleaning.qmd
+      - eda/colette-l.qmd
+      - eda/julia-p.qmd
+      - eda/imdbCleaning.qmd
+      - eda/letterboxdCleaning.qmd
+      - eda/mergingData.qmd
+      - eda/testingViz.qmd
 
     - part: "Effective Teamwork"
       chapters:
-      - effectiveTeamwork/JP.qmd
-      - effectiveTeamwork/CL.qmd
+      - et/Julia-P.qmd
+      - et/Colette-L.qmd
     
   appendices:
   - src/appx/proposal.qmd
