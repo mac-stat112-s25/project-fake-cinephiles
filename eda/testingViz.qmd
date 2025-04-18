@@ -47,3 +47,73 @@ attempt <- ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score, tooltip
 girafe(ggobj = attempt)
 
 ```
+
+```{r}
+# Editing the data to have cleaner movie titles
+
+nice_data <- merged_data |>
+  mutate(Title = fct_recode(Title,
+    "12 Angry Men" = "12angrymen",
+    "2001: A Space Odyssey" = "2001aspaceodyssey",
+    "4 Months 3 Weeks and 2 Days" =  "4months3weeksand2days",
+    "8 Half" = "8half",
+    "A Bright Summer Day" = "abrightersummerday",
+    "A Man Escaped" = "amanescaped",
+    "A Matter of Life and Death" = "amatteroflifeanddeath",
+    "Asperation" = "aseparation",
+    "A Special Day" = "aspecialday",
+    "A Woman Under the Influence" = "awomanundertheinfluence",
+    "Ace in the Hole" = "aceinthehole",
+    "After Sun" = "aftersun",
+    "Akira" = "akira",
+    "Alien" = "alien",
+    "All About Eve" = "allabouteve",
+    "All That Jazz" = "allthatjazz",
+    "Amadeus" = "amadeus",
+    "Amour" = "amour",
+    "An Autumn Afternoon" = "anautumnafternoon",
+    "An Elephant Sitting Still" = "anelephantsittingstill",
+    "Anatomy of a Murder" = "anatomyofamurder",
+    "Andrei Rublev" = "andreirublev",
+    "Aparajito" = "aparajito",
+    "Apocalypse Now" = "apocalypsenow",
+    "Apursansar" = "apursansar",
+    "Army of Shadows" = "armyofshadows",
+    "Autumn Sonata" = "autumnsonata"
+    
+  )) 
+```
+
+
+
+```{r}
+#| fig-height: 5
+#| fig-width: 6
+font_add_google("Lato", "lato")
+showtext_auto()
+
+viz <- ggplot(nice_data, aes(x = imdb_score, y = letterboxd_score, tooltip = Title)) +
+  geom_jitter_interactive(alpha = 0.6, color = "#4a4a4a", size = 2) +
+  geom_smooth_interactive(method = "lm", color = "#e63946", se = FALSE, size = 1.2) +
+  labs(
+    title = "Comparing IMDb and Letterboxd Film Ratings",
+    subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
+    x = "IMDb Score",
+    y = "Letterboxd Score",
+    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", color = "#222222"),
+    plot.subtitle = element_text(size = 14, margin = margin(b = 10), color = "#555555"),
+    axis.title = element_text(size = 13, face = "bold"),
+    axis.text = element_text(size = 11, color = "#333333"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "#dddddd", size = 0.3),
+    plot.caption = element_text(size = 9, color = "#777777", margin = margin(t = 10))
+  )
+
+
+girafe(ggobj = viz)
+
+```
