@@ -17,73 +17,201 @@ merged_data <- read_csv("..\\data\\merged_data")
 ```
 
 ```{r}
-#| fig-height: 5
-#| fig-width: 6
-font_add_google("Lato", "lato")
-showtext_auto()
-
-attempt <- ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score, tooltip = Title)) +
-  geom_jitter_interactive(alpha = 0.6, color = "#4a4a4a", size = 2) +
-  geom_smooth(method = "lm", color = "#e63946", se = FALSE, size = 1.2) +
-  labs(
-    title = "Comparing IMDb and Letterboxd Film Ratings",
-    subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
-    x = "IMDb Score",
-    y = "Letterboxd Score",
-    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 20, face = "bold", color = "#222222"),
-    plot.subtitle = element_text(size = 14, margin = margin(b = 10), color = "#555555"),
-    axis.title = element_text(size = 13, face = "bold"),
-    axis.text = element_text(size = 11, color = "#333333"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_line(color = "#dddddd", size = 0.3),
-    plot.caption = element_text(size = 9, color = "#777777", margin = margin(t = 10))
-  )
-
-
-girafe(ggobj = attempt)
-
-```
-
-```{r}
 # Editing the data to have cleaner movie titles
 
-nice_data <- merged_data |>
-  mutate(Title = fct_recode(Title,
-    "12 Angry Men" = "12angrymen",
-    "2001: A Space Odyssey" = "2001aspaceodyssey",
-    "4 Months 3 Weeks and 2 Days" =  "4months3weeksand2days",
-    "8 Half" = "8half",
-    "A Bright Summer Day" = "abrightersummerday",
-    "A Man Escaped" = "amanescaped",
-    "A Matter of Life and Death" = "amatteroflifeanddeath",
-    "Asperation" = "aseparation",
-    "A Special Day" = "aspecialday",
-    "A Woman Under the Influence" = "awomanundertheinfluence",
-    "Ace in the Hole" = "aceinthehole",
-    "After Sun" = "aftersun",
-    "Akira" = "akira",
-    "Alien" = "alien",
-    "All About Eve" = "allabouteve",
-    "All That Jazz" = "allthatjazz",
-    "Amadeus" = "amadeus",
-    "Amour" = "amour",
-    "An Autumn Afternoon" = "anautumnafternoon",
-    "An Elephant Sitting Still" = "anelephantsittingstill",
-    "Anatomy of a Murder" = "anatomyofamurder",
-    "Andrei Rublev" = "andreirublev",
-    "Aparajito" = "aparajito",
-    "Apocalypse Now" = "apocalypsenow",
-    "Apursansar" = "apursansar",
-    "Army of Shadows" = "armyofshadows",
-    "Autumn Sonata" = "autumnsonata"
-    
-  )) 
-```
 
+library(dplyr)
+library(stringr)
+
+# Step 1: Clean Titles (aggressively remove numbers and special characters)
+nice_data <- nice_data %>%
+  mutate(
+    Title_clean = str_to_lower(Title),                # Convert to lowercase
+    Title_clean = str_trim(Title_clean),               # Trim whitespace
+    Title_clean = str_replace_all(Title_clean, "[^a-z]", "")  # Remove everything except letters
+  )
+
+#step 2 title lookup 
+title_lookup <- c(
+  napoleon = "Napoleon",
+  network = "Network",
+  nightsofcabiria = "Nights of Cabiria",
+  nocountryforoldmen = "No Country for Old Men",
+  nobodyknows = "Nobody Knows",
+  nostalgia1983 = "Nostalgia",
+  oldboy = "Oldboy",
+  openingnight = "Opening Night",
+  oppenheimer2023 = "Oppenheimer",
+  papermoon = "Paper Moon",
+  patherpanchali = "Pather Panchali",
+  perfectdays2023 = "Perfect Days",
+  prisoners = "Prisoners",
+  psycho = "Psycho",
+  ragingbull = "Raging Bull",
+  raisetheredlantern = "Raise the Red Lantern",
+  redbeard = "Red Beard",
+  rififi = "Rififi",
+  ritual2000 = "The Ritual",
+  samurairebellion = "Samurai Rebellion",
+  sanshothebailiff = "Sansho the Bailiff",
+  savingprivateryan = "Saving Private Ryan",
+  secretslies = "Secrets & Lies",
+  sherlockjr = "Sherlock Jr.",
+  singsing2023 = "Sing Sing",
+  singinintherain = "Singin' in the Rain",
+  sorcerer = "Sorcerer",
+  spidermanacrossthespiderverse = "Spider-Man: Across the Spider-Verse",
+  spidermanintothespiderverse = "Spider-Man: Into the Spider-Verse",
+  sweetsmellofsuccess = "Sweet Smell of Success",
+  swinggirls = "Swing Girls",
+  tampopo = "Tampopo",
+  terminator2judgmentday = "Terminator 2: Judgment Day",
+  thebestofyouth = "The Best of Youth",
+  thebridgeontheriverkwai = "The Bridge on the River Kwai",
+  thecelebration = "The Celebration",
+  thecranesareflying = "The Cranes Are Flying",
+  thedarkknight = "The Dark Knight",
+  thedeparted = "The Departed",
+  theempirestrikesback = "The Empire Strikes Back",
+  thefaceofanother = "The Face of Another",
+  thefather2020 = "The Father",
+  thefifthseal = "The Fifth Seal",
+  thefirstslamdunk = "The First Slam Dunk",
+  thegrandbudapesthotel = "The Grand Budapest Hotel",
+  theholdovers = "The Holdovers",
+  thehumanconditioninogreaterlove = "The Human Condition I: No Greater Love",
+  thehumanconditioniiroadtoeternity = "The Human Condition II: Road to Eternity",
+  thehumanconditioniiiasoldiersprayer = "The Human Condition III: A Soldier's Prayer",
+  thehunt2012 = "The Hunt",
+  theirongiant = "The Iron Giant",
+  thekingofcomedy = "The King of Comedy",
+  thelifeanddeathofcolonelblimp = "The Life and Death of Colonel Blimp",
+  thelionking = "The Lion King",
+  thelordoftheringsthefellowshipofthering = "The Lord of the Rings: The Fellowship of the Ring",
+  thelordoftheringsthereturnoftheking = "The Lord of the Rings: The Return of the King",
+  thelordoftheringsthetwotowers = "The Lord of the Rings: The Two Towers",
+  theprestige = "The Prestige",
+  thesacrifice = "The Sacrifice",
+  theshawshankredemption = "The Shawshank Redemption",
+  thesilenceofthelambs = "The Silence of the Lambs",
+  thetaleoftheprincesskaguya = "The Tale of the Princess Kaguya",
+  thething = "The Thing",
+  thetreasureofthesierramadre = "The Treasure of the Sierra Madre",
+  thetrumanshow = "The Truman Show",
+  theweepingmeadow = "The Weeping Meadow",
+  theyounggirlsofrochefort = "The Young Girls of Rochefort",
+  threecoloursred = "Three Colors: Red",
+  throneofblood = "Throne of Blood",
+  tobeornottobe = "To Be or Not to Be",
+  umbertod = "Umberto D.",
+  underground1995 = "Underground",
+  warandpeace = "War and Peace",
+  werckmeisterharmonies = "Werckmeister Harmonies",
+  whereisthefriendshouse = "Where Is the Friend's House?",
+  whiplash2014 = "Whiplash",
+  whosafraidofvirginiawoolf = "Who's Afraid of Virginia Woolf?",
+  wildstrawberries = "Wild Strawberries",
+  winterlight = "Winter Light",
+  witnessfortheprosecution1957 = "Witness for the Prosecution"
+)
+
+# Step 3: Apply the title lookup properly
+nice_data <- nice_data %>%
+  mutate(
+    Title_display = case_when(
+      Title_clean %in% names(title_lookup) ~ title_lookup[Title_clean],
+      TRUE ~ Title  # If no match, keep the original title
+    )
+  )
+
+# Step 4: manually fix remaining issues
+
+nice_data <- nice_data |>
+  mutate(Title = fct_recode(Title,
+    "Napoleon" = "napoleon",
+    "Network" = "network",
+    "Nights of Cabiria" = "nightsofcabiria",
+    "No Country for Old Men" = "nocountryforoldmen",
+    "Nobody Knows" = "nobodyknows",
+    "Nostalgia" = "nostalgia1983",
+    "Old Boy" = "oldboy",
+    "Opening Night" = "openingnight",
+    "Oppenheimer" = "oppenheimer2023",
+    "Paper Moon" = "papermoon",
+    "Pather Panchali" = "patherpanchali",
+    "Perfect Days" = "perfectdays2023",
+    "Prisoners" = "prisoners",
+    "Psycho" = "psycho",
+    "Raging Bull" = "ragingbull",
+    "Raise the Red Lantern" = "raisetheredlantern",
+    "Redbeard" = "redbeard",
+    "Rififi" = "rififi",
+    "Ritual" = "ritual2000",
+    "Samurai Rebellion" = "samurairebellion",
+    "Sansho the Bailiff" = "sanshothebailiff",
+    "Saving Private Ryan" = "savingprivateryan",
+    "Secrets Lies" = "secretslies",
+    "Sherlock Jr" = "sherlockjr",
+    "Sing Sing" = "singsing2023",
+    "Singing In The Rain" = "singinintherain",
+    "Spiderman: Into the Spiderverse" = "spidermanintothespiderverse",
+    "Spiderman: Across the Spiderverse" = "spidermanacrossthespiderverse",
+    "Sweet Smell of Success" = "sweetsmellofsuccess",
+    "Swing Girls" = "swinggirls",
+    "Tampopo" = "tampopo",
+    "Terminator 2 Judgement Day" = "terminator2judgmentday",
+    "The Best of Youth" = "thebestofyouth",
+    "The Bridge on the River Kwai" = "thebridgeontheriverkwai",
+    "The Celebration" = "thecelebration",
+    "The Cranes are Flying" = "thecranesareflying",
+    "The Dark Knight" = "thedarkknight",
+    "The Departed" = "thedeparted",
+    "The Empire Strikes Back" = "theempirestrikesback",
+    "The Face of Another" = "thefaceofanother",
+    "The Father" = "thefather2020",
+    "The First Slam Drunk" = "thefirstslamdunk",
+    "The Grand Budapest Hotel" = "thegrandbudapesthotel",
+    "The Holdovers" = "theholdovers",
+    "The Human Condition 1 Greater Love" = "thehumanconditioninogreaterlove",
+    "The Human Condition 2 Road to Eternity" = "thehumanconditioniiroadtoeternity",
+    "The Human Condition 3 A Soldier's Prayer" = "thehumanconditioniiiasoldiersprayer",
+    "The Hunt" = "thehunt2012",
+    "The Iron Giant" = "theirongiant",
+    "The King of Comedy" = "thekingofcomedy",
+    "The Life and Death of Colonel Blimp" = "thelifeanddeathofcolonelblimp",
+    "The Lion King" = "thelionking",
+    "The Lord of the Rings: The Return of the King" = "thelordoftheringsthereturnoftheking",
+    "The Lord of the Rings: The Fellowship of the Ring" = "thelordoftheringsthefellowshipofthering",
+    "The Lord of the Rings: The Two Towers" = "thelordoftheringsthetwotowers",
+    "The Prestige" = "theprestige",
+    "The Sacrifice" = "thesacrifice",
+    "The Shawshank Redemption" = "theshawshankredemption",
+    "The Silence of the Lambs" = "thesilenceofthelambs",
+    "The Tale of the Princess Kaguya" = "thetaleoftheprincesskaguya",
+    "The Thing" = "thething",
+    "The Treasure of the Sierra Madre" = "thetreasureofthesierramadre",
+    "The Truman Show" = "thetrumanshow",
+    "The Weeping Meadow" = "theweepingmeadow",
+    "The Young Girls of Rochefort" = "theyounggirlsofrochefort",
+    "Three Colours Red" = "threecoloursred",
+    "Throne of Blood" = "throneofblood",
+    "To Be or Not To Be" = "tobeornottobe",
+    "Umber Tod" = "umbertod",
+    "Underground" = "underground1995",
+    "War and Peace" = "warandpeace",
+    "Werckmeister Harmonies" = "werckmeisterharmonies",
+    "Where is the Friends House" = "whereisthefriendshouse",
+    "Whiplash" = "whiplash2014",
+    "Whos Afraid of Virginia Woolf" = "whosafraidofvirginiawoolf",
+    "Wild Strawberries" = "wildstrawberries",
+    "Winter Light" = "winterlight",
+    "Witness for the Prosecution" = "witnessfortheprosecution1957"
+  ))
+
+# Step 5: save cleaned data to csv to save space on device
+# write_csv(nice_data, "../data/final_dataset.csv")
+
+```
 
 
 ```{r}
