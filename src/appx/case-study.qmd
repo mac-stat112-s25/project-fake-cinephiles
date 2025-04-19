@@ -2,4 +2,12 @@
 title: "Case Study"
 ---
 
-Your case study will go here.
+Observation of Crossword Scandal Article:
+
+Visualizations are used both in graphs and pictures (pictures of similar crossword clues and words are highlighted to show similarities, and graphs show the exact number of crosswords with similarities).
+Sideways bar graphs are used for comparison, which work well with the data being shown.
+Relevant information to the story is highlighted in different colors on graphs.
+There are also stacked bar graphs in the article, highlighting percentages instead of specific numbers of copied crosswords.
+Each visual is labelled, captioned, and colored in an easy-to-see way.
+There's proper context for each of the graphs.
+The graphs support the story being told very well about plagiarism in the crossword community.
