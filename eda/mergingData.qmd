@@ -1,5 +1,4 @@
 ---
-title: "Combining the Letterboxd and IMDb Datasets"
 execute: 
   echo: true      # change to true to show the code
 code-fold: true  # change to true to fold the code chunks
@@ -8,6 +7,8 @@ editor:
     wrap: sentence
 format: html
 ---
+
+# Combining the Letterboxd and IMDb Datasets {-}
 
 A file to work on creating a cleaned dataset 
 

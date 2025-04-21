@@ -1,5 +1,4 @@
 ---
-title: "Final Report"
 execute: 
   echo: false      # change to true to show the code
 code-fold: true  # change to true to fold the code chunks
@@ -7,6 +6,8 @@ editor:
   markdown: 
     wrap: sentence
 ---
+
+# Final Report {-}
 
 # Motivation {.unnumbered}
 
