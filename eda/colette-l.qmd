@@ -8,6 +8,7 @@ execute:
 
 ```{r}
 library(tidyverse)
+library(here)
 letterboxd_data <-
 read_csv(here("data", "letterboxd_250movie_reviews.csv"))
 imdb_data <-
