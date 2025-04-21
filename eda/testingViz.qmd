@@ -208,9 +208,6 @@ nice_data <- nice_data |>
     "Witness for the Prosecution" = "witnessfortheprosecution1957"
   ))
 
-# Step 5: save cleaned data to csv to save space on device
-# write_csv(nice_data, "../data/final_dataset.csv")
-
 ```
 
 
@@ -244,4 +241,9 @@ viz <- ggplot(nice_data, aes(x = imdb_score, y = letterboxd_score, tooltip = Tit
 
 girafe(ggobj = viz)
 
+```
+
+```{r}
+# Step 5: save cleaned data to csv to save space on device
+write_csv(nice_data, "../data/final_dataset.csv")
 ```
