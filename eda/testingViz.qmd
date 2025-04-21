@@ -1,6 +1,9 @@
 ---
 title: "testingViz"
 format: html
+execute: 
+  echo: false
+  code-fold: true
 ---
 
 A file for testing different visualizations of the data
@@ -12,8 +15,9 @@ library(ggthemes)
 library(showtext)
 library(plotly)
 library(ggiraph)
+library(here)
 
-merged_data <- read_csv("..\\data\\merged_data")
+merged_data <- read_csv(here("data", "merged_data"))
 ```
 
 ```{r}
@@ -24,7 +28,7 @@ library(dplyr)
 library(stringr)
 
 # Step 1: Clean Titles (aggressively remove numbers and special characters)
-nice_data <- nice_data %>%
+nice_data <- merged_data %>%
   mutate(
     Title_clean = str_to_lower(Title),                # Convert to lowercase
     Title_clean = str_trim(Title_clean),               # Trim whitespace
