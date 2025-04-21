@@ -1,5 +1,4 @@
 ---
-title: "Colette's EDA"
 format: html
 execute: 
   echo: false
@@ -9,6 +8,8 @@ editor:
     wrap: sentence
 format: html
 ---
+
+# Colette's EDA {-}
 
 ```{r}
 library(tidyverse)

@@ -1,7 +1,8 @@
 ---
-title: "Julia Prewitt's Effective Teamwork Reading"
 format: html
 ---
+
+# Julia - Effective Teamwork Summary {-}
 
 [4 Characteristics of an Effective Team - Harvard Business School, Kate Gibson, 02 May 2024](https://online.hbs.edu/blog/post/characteristics-of-an-effective-team)
 

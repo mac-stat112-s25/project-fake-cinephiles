@@ -9,6 +9,8 @@ editor:
 format: html
 ---
 
+# Julia's EDA {-}
+
 # Exploring the IMDb Data {.unnumbered}
 
 ```{r}
