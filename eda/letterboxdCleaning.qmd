@@ -7,7 +7,6 @@ code-fold: true
 editor: 
   markdown: 
     wrap: sentence
-format: html
 ---
 ```{r}
 library(tidyverse) 
