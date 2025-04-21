@@ -1,8 +1,8 @@
 ---
 title: "Final Report"
 execute: 
-  echo: true      # change to true to show the code
-code-fold: false  # change to true to fold the code chunks
+  echo: false      # change to true to show the code
+code-fold: true  # change to true to fold the code chunks
 editor: 
   markdown: 
     wrap: sentence
@@ -62,6 +62,51 @@ The data was collected from the IMDb website, and licensed through public domain
 There are 1000 data points, one for each movie.
 All variables except rating are categorical.
 We have to clean movie titles in order to match and join them with the Letterboxd data, and select only the needed variables and data points to analyze this data.
+
+# The Visualization {.unnumbered}
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(showtext)
+library(plotly)
+library(ggiraph)
+library(dplyr)
+library(stringr)
+library(here)
+
+dataset <- read_csv(here("data","final_dataset.csv"))
+
+#| fig-height: 5
+#| fig-width: 6
+font_add_google("Lato", "lato")
+showtext_auto()
+
+viz <- ggplot(dataset, aes(x = imdb_score, y = letterboxd_score, tooltip = Title)) +
+  geom_jitter_interactive(alpha = 0.6, color = "#4a4a4a", size = 2) +
+  geom_smooth_interactive(method = "lm", color = "#e63946", se = FALSE, size = 1.2) +
+  labs(
+    title = "Comparing IMDb and Letterboxd Film Ratings",
+    subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
+    x = "IMDb Score",
+    y = "Letterboxd Score",
+    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", color = "#222222"),
+    plot.subtitle = element_text(size = 14, margin = margin(b = 10), color = "#555555"),
+    axis.title = element_text(size = 13, face = "bold"),
+    axis.text = element_text(size = 11, color = "#333333"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "#dddddd", size = 0.3),
+    plot.caption = element_text(size = 9, color = "#777777", margin = margin(t = 10))
+  )
+
+
+girafe(ggobj = viz)
+
+```
 
 # Data Insights {.unnumbered}
 

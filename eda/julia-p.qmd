@@ -1,5 +1,11 @@
 ---
 title: "Prewitt EDA"
+execute: 
+  echo: true      # change to true to show the code
+code-fold: true  # change to true to fold the code chunks
+editor: 
+  markdown: 
+    wrap: sentence
 format: html
 ---
 
@@ -11,7 +17,8 @@ format: html
 library(tidyverse)
 
 # load the newly imdb dataset which has been cleaned 
-imdb_cleaned <-read_csv("../data/cleaned_imdb.csv")
+imdb_cleaned <-read_csv(here("data","cleaned_imdb.csv"))
+
 
 ```
 
@@ -63,7 +70,7 @@ Research Questions:
 library(tidyverse)
 
 # import data
-letterboxd_data <- read_csv("..\\data\\letterboxd_250movie_reviews.csv")
+letterboxd_data <- read_csv(here("data", "letterboxd_250movie_reviews.csv"))
 
 letterboxd_convertStars <-letterboxd_data |>
   mutate(numerical_rating = fct_recode(Rating, "5" = "★★★★★",

@@ -1,5 +1,11 @@
 ---
 title: "Combining the Letterboxd and IMDb Datasets"
+execute: 
+  echo: true      # change to true to show the code
+code-fold: true  # change to true to fold the code chunks
+editor: 
+  markdown: 
+    wrap: sentence
 format: html
 ---
 
@@ -21,7 +27,7 @@ normalize_titles <- function(title) {
 }
 
 # Load the newly cleaned IMDb dataset
-imdb_cleaned <- read_csv("../data/cleaned_imdb.csv")
+imdb_cleaned <- read_csv(here("data","cleaned_imdb.csv"))
 
 # lowercase the imdb titles
 imdb_lower <- imdb_cleaned |>
@@ -30,7 +36,7 @@ imdb_lower <- imdb_cleaned |>
 # --------------------------------------------------------------------
 
 # Import the Letterboxd dataset
-letterboxd_data <- read_csv("..\\data\\letterboxd_250movie_reviews.csv")
+letterboxd_data <- read_csv(here("data","letterboxd_250movie_reviews.csv"))
 
 letterboxd_clean <- letterboxd_data |>
   mutate(numerical_rating = fct_recode(Rating,
