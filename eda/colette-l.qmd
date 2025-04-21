@@ -1,6 +1,5 @@
 ---
 title: "Colette's EDA"
-format: html
 execute: 
   echo: false
 code-fold: true  

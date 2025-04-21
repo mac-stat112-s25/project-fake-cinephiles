@@ -1,5 +1,4 @@
 ---
-title: "Testing Viz"
 format: html
 execute: 
   echo: false
@@ -8,6 +7,7 @@ editor:
   markdown: 
     wrap: sentence
 ---
+# Testing Viz {-}
 
 A file for testing different visualizations of the data
 

@@ -1,5 +1,4 @@
 ---
-title: "Prewitt EDA"
 execute: 
   echo: true      # change to true to show the code
 code-fold: true  # change to true to fold the code chunks
@@ -8,7 +7,7 @@ editor:
     wrap: sentence
 format: html
 ---
-
+# Julia's EDA {-}
 # Exploring the IMDb Data {.unnumbered}
 
 ```{r}
