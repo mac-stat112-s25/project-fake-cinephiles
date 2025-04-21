@@ -8,8 +8,6 @@ editor:
     wrap: sentence
 ---
 
-Your report will go here.
-
 # Motivation {.unnumbered}
 
 Colette and I both utilize Letterboxd and enjoy films; we both are aware that the typical Letterboxd user tends to be a "cinephile", trending towards a movie snob rather than a casual enjoyer.

@@ -3,7 +3,11 @@ title: "Letterboxd Cleaning"
 format: html
 execute: 
   echo: true
-  code-fold: true
+code-fold: true  
+editor: 
+  markdown: 
+    wrap: sentence
+format: html
 ---
 ```{r}
 library(tidyverse) 

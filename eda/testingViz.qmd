@@ -1,9 +1,13 @@
 ---
-title: "testingViz"
+title: "Testing Viz"
 format: html
 execute: 
   echo: false
-  code-fold: true
+code-fold: true  
+editor: 
+  markdown: 
+    wrap: sentence
+format: html
 ---
 
 A file for testing different visualizations of the data

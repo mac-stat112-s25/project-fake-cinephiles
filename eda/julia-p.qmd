@@ -145,8 +145,9 @@ letterboxd_clean %>%
 
 ```{r}
 # Import the merged dataset (created in the mergingData file!)
+
 # import data
-merged_data <- read_csv("..\\data\\merged_data")
+merged_data <- read_csv(here("data", "merged_data"))
 
 # clean of the 4 NA values
 merged_data <- merged_data |>
