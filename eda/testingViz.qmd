@@ -26,19 +26,21 @@ merged_data <- read_csv(here("data", "merged_data"))
 ```{r}
 # Editing the data to have cleaner movie titles
 
-
 library(dplyr)
 library(stringr)
+library(tibble)
 
-# Step 1: Clean Titles (aggressively remove numbers and special characters)
-nice_data <- merged_data %>%
-  mutate(
-    Title_clean = str_to_lower(Title),                # Convert to lowercase
-    Title_clean = str_trim(Title_clean),               # Trim whitespace
-    Title_clean = str_replace_all(Title_clean, "[^a-z]", "")  # Remove everything except letters
-  )
+# Define the formatting function for fallback titles
+format_title <- function(title) {
+  title %>%
+    str_replace_all("([a-z])([A-Z])", "\\1 \\2") %>%  # camelCase to spaced
+    str_replace_all("_", " ") %>%                     # underscores to space
+    str_replace_all("-", " ") %>%                     # dashes to space
+    str_to_title() %>%                                # capitalize each word
+    str_squish()                                      # trim extra spaces
+}
 
-#step 2 title lookup 
+# Named vector for mapping cleaned titles to display titles
 title_lookup <- c(
   napoleon = "Napoleon",
   network = "Network",
@@ -66,7 +68,6 @@ title_lookup <- c(
   sherlockjr = "Sherlock Jr.",
   singsing2023 = "Sing Sing",
   singinintherain = "Singin' in the Rain",
-  sorcerer = "Sorcerer",
   spidermanacrossthespiderverse = "Spider-Man: Across the Spider-Verse",
   spidermanintothespiderverse = "Spider-Man: Into the Spider-Verse",
   sweetsmellofsuccess = "Sweet Smell of Success",
@@ -122,98 +123,21 @@ title_lookup <- c(
   witnessfortheprosecution1957 = "Witness for the Prosecution"
 )
 
-# Step 3: Apply the title lookup properly
-nice_data <- nice_data %>%
+#Apply formatting
+nice_data <- merged_data %>%
   mutate(
-    Title_display = case_when(
-      Title_clean %in% names(title_lookup) ~ title_lookup[Title_clean],
-      TRUE ~ Title  # If no match, keep the original title
+    # Create a lowercase stripped version to match title_lookup keys
+    lookup_key = str_replace_all(str_to_lower(Title), "[^a-z]", ""),
+    
+    # Use manual mapping if available, otherwise auto-format the original Title
+    Title = if_else(
+      !is.na(title_lookup[lookup_key]),
+      title_lookup[lookup_key],
+      format_title(Title)
     )
-  )
+  ) %>%
+  select(-lookup_key)  # remove helper column
 
-# Step 4: manually fix remaining issues
-
-nice_data <- nice_data |>
-  mutate(Title = fct_recode(Title,
-    "Napoleon" = "napoleon",
-    "Network" = "network",
-    "Nights of Cabiria" = "nightsofcabiria",
-    "No Country for Old Men" = "nocountryforoldmen",
-    "Nobody Knows" = "nobodyknows",
-    "Nostalgia" = "nostalgia1983",
-    "Old Boy" = "oldboy",
-    "Opening Night" = "openingnight",
-    "Oppenheimer" = "oppenheimer2023",
-    "Paper Moon" = "papermoon",
-    "Pather Panchali" = "patherpanchali",
-    "Perfect Days" = "perfectdays2023",
-    "Prisoners" = "prisoners",
-    "Psycho" = "psycho",
-    "Raging Bull" = "ragingbull",
-    "Raise the Red Lantern" = "raisetheredlantern",
-    "Redbeard" = "redbeard",
-    "Rififi" = "rififi",
-    "Ritual" = "ritual2000",
-    "Samurai Rebellion" = "samurairebellion",
-    "Sansho the Bailiff" = "sanshothebailiff",
-    "Saving Private Ryan" = "savingprivateryan",
-    "Secrets Lies" = "secretslies",
-    "Sherlock Jr" = "sherlockjr",
-    "Sing Sing" = "singsing2023",
-    "Singing In The Rain" = "singinintherain",
-    "Spiderman: Into the Spiderverse" = "spidermanintothespiderverse",
-    "Spiderman: Across the Spiderverse" = "spidermanacrossthespiderverse",
-    "Sweet Smell of Success" = "sweetsmellofsuccess",
-    "Swing Girls" = "swinggirls",
-    "Tampopo" = "tampopo",
-    "Terminator 2 Judgement Day" = "terminator2judgmentday",
-    "The Best of Youth" = "thebestofyouth",
-    "The Bridge on the River Kwai" = "thebridgeontheriverkwai",
-    "The Celebration" = "thecelebration",
-    "The Cranes are Flying" = "thecranesareflying",
-    "The Dark Knight" = "thedarkknight",
-    "The Departed" = "thedeparted",
-    "The Empire Strikes Back" = "theempirestrikesback",
-    "The Face of Another" = "thefaceofanother",
-    "The Father" = "thefather2020",
-    "The First Slam Drunk" = "thefirstslamdunk",
-    "The Grand Budapest Hotel" = "thegrandbudapesthotel",
-    "The Holdovers" = "theholdovers",
-    "The Human Condition 1 Greater Love" = "thehumanconditioninogreaterlove",
-    "The Human Condition 2 Road to Eternity" = "thehumanconditioniiroadtoeternity",
-    "The Human Condition 3 A Soldier's Prayer" = "thehumanconditioniiiasoldiersprayer",
-    "The Hunt" = "thehunt2012",
-    "The Iron Giant" = "theirongiant",
-    "The King of Comedy" = "thekingofcomedy",
-    "The Life and Death of Colonel Blimp" = "thelifeanddeathofcolonelblimp",
-    "The Lion King" = "thelionking",
-    "The Lord of the Rings: The Return of the King" = "thelordoftheringsthereturnoftheking",
-    "The Lord of the Rings: The Fellowship of the Ring" = "thelordoftheringsthefellowshipofthering",
-    "The Lord of the Rings: The Two Towers" = "thelordoftheringsthetwotowers",
-    "The Prestige" = "theprestige",
-    "The Sacrifice" = "thesacrifice",
-    "The Shawshank Redemption" = "theshawshankredemption",
-    "The Silence of the Lambs" = "thesilenceofthelambs",
-    "The Tale of the Princess Kaguya" = "thetaleoftheprincesskaguya",
-    "The Thing" = "thething",
-    "The Treasure of the Sierra Madre" = "thetreasureofthesierramadre",
-    "The Truman Show" = "thetrumanshow",
-    "The Weeping Meadow" = "theweepingmeadow",
-    "The Young Girls of Rochefort" = "theyounggirlsofrochefort",
-    "Three Colours Red" = "threecoloursred",
-    "Throne of Blood" = "throneofblood",
-    "To Be or Not To Be" = "tobeornottobe",
-    "Umber Tod" = "umbertod",
-    "Underground" = "underground1995",
-    "War and Peace" = "warandpeace",
-    "Werckmeister Harmonies" = "werckmeisterharmonies",
-    "Where is the Friends House" = "whereisthefriendshouse",
-    "Whiplash" = "whiplash2014",
-    "Whos Afraid of Virginia Woolf" = "whosafraidofvirginiawoolf",
-    "Wild Strawberries" = "wildstrawberries",
-    "Winter Light" = "winterlight",
-    "Witness for the Prosecution" = "witnessfortheprosecution1957"
-  ))
 
 ```
 

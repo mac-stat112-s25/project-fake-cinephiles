@@ -78,6 +78,10 @@ dataset <- read_csv(here("data","final_dataset.csv"))
 
 #| fig-height: 5
 #| fig-width: 6
+#| fig-alt: An interactive scatterplot of the top 250 films on letterboxd, with letterboxd rating on the y axis and imdb rating on the x axis. It is a roughly linear relationship between the two variables, with some outliers. 
+#| fig-cap: Comparing IMDb and Letterboxd Film Ratings - Data from IMDb and Letterboxd - Made by Colette Lawler and Julia Prewitt
+
+
 font_add_google("Lato", "lato")
 showtext_auto()
 
