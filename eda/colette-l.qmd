@@ -9,6 +9,9 @@ format: html
 ---
 # Colette's EDA {-}
 
+# Colette's EDA {-}
+
+
 ```{r}
 library(tidyverse)
 library(here)
