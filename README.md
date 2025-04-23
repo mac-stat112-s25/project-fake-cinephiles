@@ -23,7 +23,7 @@ If you render the book on your machine it should take you to the project website
 
 If you remain in RStudio, you can expect to see the files organized like this:
 
-![Photo of the files window in RStudio for this project](documentation_images/file_org_for_readme.png){fig-alt="Photo of the files window in RStudio for this project"}
+![Photo of the files window in RStudio for this project](documentation_images/file_org_for_readme.png)
 
 -   index.qmd is the main report page
 
