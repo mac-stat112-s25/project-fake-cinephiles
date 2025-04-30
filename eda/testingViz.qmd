@@ -2,12 +2,12 @@
 format: html
 execute: 
   echo: false
-code-fold: true  
+code-fold: false  
 editor: 
   markdown: 
     wrap: sentence
 ---
-# Testing Viz {-}
+# Testing Visualizations {-}
 
 A file for testing different visualizations of the data
 
@@ -156,7 +156,7 @@ viz <- ggplot(nice_data, aes(x = imdb_score, y = letterboxd_score, tooltip = Tit
     subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
     x = "IMDb Score",
     y = "Letterboxd Score",
-    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt"
+    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt, Created 2025"
   ) +
   theme_minimal() +
   theme(

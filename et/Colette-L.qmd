@@ -2,7 +2,7 @@
 format: html
 ---
 
-# Colette Effective Teamwork Summary {-}
+# Colette - Effective Teamwork Summary {-}
 
 Effective teamwork article - https://hr.berkeley.edu/hr-network/central-guide-managing-hr/managing-hr/interaction/team-building/steps
 

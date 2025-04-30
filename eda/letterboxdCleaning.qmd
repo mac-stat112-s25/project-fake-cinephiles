@@ -2,7 +2,7 @@
 format: html
 execute: 
   echo: true
-code-fold: true  
+code-fold: false  
 editor: 
   markdown: 
     wrap: sentence
