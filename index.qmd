@@ -9,6 +9,8 @@ editor:
 
 # Final Report {.unnumbered}
 
+*For a video version of this report, please view the video here (and view slides utilized [here](https://docs.google.com/presentation/d/1GuXSzo1fz242B8SFhrMoe7ahR4lRPtUCwR6cXDFjB6I/edit?usp=sharing)).*
+
 # Motivation {.unnumbered}
 
 Colette and Julia both utilize Letterboxd and enjoy films; we both are aware that the typical Letterboxd user tends to be a "cinephile", trending towards a movie snob rather than a casual enjoyer.
@@ -96,9 +98,9 @@ imdb_cleaned <-read_csv(here("data","cleaned_imdb.csv"))
 library(tidyverse)
 library(here)
 
-# load the newly imdb dataset which has been cleaned 
+# load the cleaned letterboxd dataset 
 #|Fig-alt: "A visualization of a barplot representing the distribution of letterboxd movie ratings, with ratings 1-10 on the x axis and number of movies on the y axis"
-imdb_cleaned <-read_csv(here("data","cleaned_imdb.csv"))
+letterboxd_clean <-read_csv(here("data","cleaned_letterboxd.csv"))
     
   letterboxd_clean %>%
   ggplot(aes(x = avg_rating)) +
@@ -186,3 +188,7 @@ This is the biggest outlier.
 This is a limitation of the data itself that reflected in our viz and analysis.
 Removing NA values also might have constricted our dataset and analysis.
 Future questions might include observations about if movies on Letterboxd are usually rated higher or lower based on rewatch, the average ratings of individual Letterboxd and IMDb users, and high-rated movies that are most frequently on Letterboxd users top four (a place on a profile where users can display their favorite four movies).
+
+# Video Report {.unnumbered}
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTZhjyTv_x0CqXX9l19h_gHB3UKue4ZyMZ63YzAhRUFgrPBx-ipfrAmgt1oLP713-K5F3-vdlsWd0P8/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

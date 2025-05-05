@@ -56,5 +56,8 @@ arrange(desc(avg_rating)) |>
 ```{r}
 # preview code
 head(letterboxd_clean)
+
+# write_csv(letterboxd_clean, "../data/cleaned_letterboxd.csv")
+
 ```
 
