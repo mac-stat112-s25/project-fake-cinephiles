@@ -34,7 +34,3 @@ If you remain in RStudio, you can expect to see the files organized like this:
 -   data - contains datasets used for the project
 
 -   src -\> appx - contains original project proposal, case study of additional data
-
-# Presentation
-
-Embed Slides Embed Video
