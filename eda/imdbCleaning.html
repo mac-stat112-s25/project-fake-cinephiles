@@ -201,7 +201,7 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../eda/testingViz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Testing Viz</span></a>
+ <span class="menu-text">Testing Visualizations</span></a>
   </div>
 </li>
       </ul>
@@ -224,7 +224,7 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../et/Colette-L.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Colette Effective Teamwork Summary</span></a>
+ <span class="menu-text">Colette - Effective Teamwork Summary</span></a>
   </div>
 </li>
       </ul>
@@ -261,7 +261,7 @@ cookieconsent.run({
     </div>
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../eda/colette-l.html">EDA</a></li><li class="breadcrumb-item"><a href="../eda/imdbCleaning.html">IMDb Cleaning</a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">IMDb Cleaning</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">IMDb Cleaning</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -278,17 +278,16 @@ cookieconsent.run({
 </header><p>Data Source: https://developer.imdb.com/non-commercial-datasets/</p>
 <p>selecting title.basics.tsv.gz and title.ratings.tsv.gz</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># import relevant packages</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># import relevant packages</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(here)</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="co"># load the datasets</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="co"># title_basics &lt;- read_tsv("../data/title.basics.tsv", na = "\\N", quote = "")</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="co"># title_ratings &lt;- read_tsv("../data/title.ratings.tsv", na = "\\N", quote = "")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># # select only movies from the titles </span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># # select only movies from the titles </span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># movies &lt;- title_basics %&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co">#   filter(titleType == "movie")</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="co"># </span></span>
@@ -299,12 +298,10 @@ cookieconsent.run({
 <span id="cb2-9"><a href="#cb2-9"></a><span class="co"># # select only relevant columns</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a><span class="co"># imdb_cleaned &lt;- movie_ratings %&gt;%</span></span>
 <span id="cb2-11"><a href="#cb2-11"></a><span class="co">#   select(Title = primaryTitle, Rating = averageRating)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># save cleaned data to csv to save space on device</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># save cleaned data to csv to save space on device</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co"># write_csv(imdb_cleaned, "../data/cleaned_imdb.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 
 
@@ -944,7 +941,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">---</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="an">execute:</span><span class="co"> </span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">  echo: true      # change to true to show the code</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="an">code-fold:</span><span class="co"> true  # change to true to fold the code chunks</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="an">code-fold:</span><span class="co"> false  # change to true to fold the code chunks</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="an">editor:</span><span class="co"> </span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">  markdown: </span></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="co">    wrap: sentence</span></span>

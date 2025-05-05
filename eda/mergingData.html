@@ -201,7 +201,7 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../eda/testingViz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Testing Viz</span></a>
+ <span class="menu-text">Testing Visualizations</span></a>
   </div>
 </li>
       </ul>
@@ -224,7 +224,7 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../et/Colette-L.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Colette Effective Teamwork Summary</span></a>
+ <span class="menu-text">Colette - Effective Teamwork Summary</span></a>
   </div>
 </li>
       </ul>
@@ -266,7 +266,7 @@ cookieconsent.run({
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../eda/colette-l.html">EDA</a></li><li class="breadcrumb-item"><a href="../eda/mergingData.html">Combining the Letterboxd and IMDb Datasets</a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Combining the Letterboxd and IMDb Datasets</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Combining the Letterboxd and IMDb Datasets</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -283,7 +283,7 @@ cookieconsent.run({
 </header><p>A file to work on creating a cleaned dataset</p>
 <section id="import-datasets-and-clean-them-using-steps-established-in-cleaning-files" class="level1 unnumbered"><h1 class="unnumbered">Import datasets and clean them using steps established in cleaning files</h1>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(fuzzyjoin)</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(here)</span>
@@ -325,11 +325,10 @@ cookieconsent.run({
 <span id="cb1-40"><a href="#cb1-40"></a>  <span class="fu">summarise</span>(<span class="at">avg_rating =</span> <span class="fu">mean</span>(out_of_ten, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb1-41"><a href="#cb1-41"></a>  <span class="fu">mutate</span>(<span class="at">Title =</span> <span class="fu">normalize_titles</span>(Movie)) <span class="sc">|&gt;</span></span>
 <span id="cb1-42"><a href="#cb1-42"></a>  <span class="fu">select</span>(Title, avg_rating)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section><section id="merge-files" class="level1 unnumbered"><h1 class="unnumbered">Merge Files</h1>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#make sure IMDB data is unique:</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#make sure IMDB data is unique:</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>imdb_lower_unique <span class="ot">&lt;-</span> imdb_lower <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">group_by</span>(Title) <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">slice_max</span>(Rating, <span class="at">n =</span> <span class="dv">1</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span>  <span class="co"># or another criteria</span></span>
@@ -345,22 +344,22 @@ cookieconsent.run({
 <span id="cb2-14"><a href="#cb2-14"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co"># How many rows matched</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a><span class="fu">nrow</span>(merged)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 250</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># How many are missing IMDb scores</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># How many are missing IMDb scores</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(merged<span class="sc">$</span>imdb_score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 21</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Check how many matches exist between IMDb and the rest of the data</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Check how many matches exist between IMDb and the rest of the data</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(merged<span class="sc">$</span>imdb_score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 229</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Preview of the merged data</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Preview of the merged data</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="fu">head</span>(merged)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   Title                 letterboxd_score imdb_score
   &lt;chr&gt;                            &lt;dbl&gt;      &lt;dbl&gt;
@@ -371,9 +370,9 @@ cookieconsent.run({
 5 abrightersummerday                9.26        8.2
 6 amanescaped                       8.86        8.2</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Check what cases did not find a match</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Check what cases did not find a match</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>merged <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(imdb_score)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(Title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code> [1] "8half"                         "apursansar"                   
  [3] "evangelion3010thriceuponatime" "happytogether1997"            
  [5] "lesamourai"                    "letrou"                       
@@ -388,7 +387,7 @@ cookieconsent.run({
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Manually fill in missing values</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Manually fill in missing values</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="co"># some are not present in the IMDB data! they are as follows:</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="co"># 8half, apursansar, lesamourai, theweepingmeadow                </span></span>
@@ -420,30 +419,29 @@ cookieconsent.run({
 <span id="cb12-30"><a href="#cb12-30"></a></span>
 <span id="cb12-31"><a href="#cb12-31"></a><span class="co"># How many rows matched</span></span>
 <span id="cb12-32"><a href="#cb12-32"></a><span class="fu">nrow</span>(merged_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 250</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># How many are missing IMDb scores</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># How many are missing IMDb scores</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(merged_data<span class="sc">$</span>imdb_score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Check how many matches exist between IMDb and the rest of the data</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Check how many matches exist between IMDb and the rest of the data</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(merged_data<span class="sc">$</span>imdb_score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 246</code></pre>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Check what cases did not find a match</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Check what cases did not find a match</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>merged_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(imdb_score)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(Title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "8half"            "apursansar"       "lesamourai"       "theweepingmeadow"</code></pre>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># explort the merged dataset for easier use later</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># explort the merged dataset for easier use later</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a></span>
 <span id="cb20-3"><a href="#cb20-3"></a><span class="fu">write_csv</span>(merged_data, <span class="st">"../data/merged_data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 
 
@@ -1074,15 +1072,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../eda/testingViz.html" class="pagination-link" aria-label="Testing Viz">
-        <span class="nav-page-text">Testing Viz</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../eda/testingViz.html" class="pagination-link" aria-label="Testing Visualizations">
+        <span class="nav-page-text">Testing Visualizations</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">---</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a><span class="an">execute:</span><span class="co"> </span></span>
 <span id="cb21-3"><a href="#cb21-3"></a><span class="co">  echo: true      # change to true to show the code</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="an">code-fold:</span><span class="co"> true  # change to true to fold the code chunks</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="an">code-fold:</span><span class="co"> false  # change to true to fold the code chunks</span></span>
 <span id="cb21-5"><a href="#cb21-5"></a><span class="an">editor:</span><span class="co"> </span></span>
 <span id="cb21-6"><a href="#cb21-6"></a><span class="co">  markdown: </span></span>
 <span id="cb21-7"><a href="#cb21-7"></a><span class="co">    wrap: sentence</span></span>

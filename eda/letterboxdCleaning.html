@@ -201,7 +201,7 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../eda/testingViz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Testing Viz</span></a>
+ <span class="menu-text">Testing Visualizations</span></a>
   </div>
 </li>
       </ul>
@@ -224,7 +224,7 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../et/Colette-L.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Colette Effective Teamwork Summary</span></a>
+ <span class="menu-text">Colette - Effective Teamwork Summary</span></a>
   </div>
 </li>
       </ul>
@@ -261,7 +261,7 @@ cookieconsent.run({
     </div>
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../eda/colette-l.html">EDA</a></li><li class="breadcrumb-item"><a href="../eda/letterboxdCleaning.html">Letterboxd Cleaning</a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Letterboxd Cleaning</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Letterboxd Cleaning</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -276,7 +276,7 @@ cookieconsent.run({
 
 
 </header><div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse) </span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse) </span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(here)</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
@@ -286,7 +286,7 @@ cookieconsent.run({
 <span id="cb1-8"><a href="#cb1-8"></a></span>
 <span id="cb1-9"><a href="#cb1-9"></a>letterboxd_data <span class="sc">|&gt;</span></span>
 <span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
    ...1 Review                                         Rating Date  Status Movie
   &lt;dbl&gt; &lt;chr&gt;                                          &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
@@ -299,7 +299,7 @@ cookieconsent.run({
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>letterboxd_convertStars <span class="ot">&lt;-</span>letterboxd_data <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>letterboxd_convertStars <span class="ot">&lt;-</span>letterboxd_data <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">mutate</span>(<span class="at">numerical_rating =</span> <span class="fu">fct_recode</span>(Rating, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"★★★★★"</span>,</span>
 <span id="cb3-3"><a href="#cb3-3"></a>                                       <span class="st">"4.5"</span> <span class="ot">=</span> <span class="st">"★★★★½"</span>, </span>
 <span id="cb3-4"><a href="#cb3-4"></a>                                        <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"★★★★"</span>,</span>
@@ -310,10 +310,9 @@ cookieconsent.run({
 <span id="cb3-9"><a href="#cb3-9"></a>                                       <span class="st">"1.5"</span> <span class="ot">=</span>  <span class="st">"★½"</span>,</span>
 <span id="cb3-10"><a href="#cb3-10"></a>                                        <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"★"</span>,</span>
 <span id="cb3-11"><a href="#cb3-11"></a>                                       <span class="st">".5"</span> <span class="ot">=</span> <span class="st">"½"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5, make movie titles spaced out and not dashes</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5, make movie titles spaced out and not dashes</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>letterboxd_clean <span class="ot">&lt;-</span> letterboxd_convertStars <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(numerical_rating)) <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">mutate</span>(</span>
@@ -326,12 +325,11 @@ cookieconsent.run({
 <span id="cb4-11"><a href="#cb4-11"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(avg_rating)) <span class="sc">|&gt;</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a>  <span class="fu">mutate</span>(<span class="at">movie_titles =</span> <span class="fu">str_replace_all</span>(Movie, <span class="st">"-"</span>, <span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">select</span>(movie_titles, avg_rating)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># preview code</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># preview code</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">head</span>(letterboxd_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   movie_titles                                 avg_rating
   &lt;chr&gt;                                             &lt;dbl&gt;
@@ -342,6 +340,7 @@ cookieconsent.run({
 5 the good the bad and the ugly                      9.48
 6 inglourious basterds                               9.48</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># write_csv(letterboxd_clean, "../data/cleaned_letterboxd.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -978,65 +977,68 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">---</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">  echo: true</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="an">code-fold:</span><span class="co"> true  </span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="an">editor:</span><span class="co"> </span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">  markdown: </span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">    wrap: sentence</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">---</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="fu"># Letterboxd Cleaning {-}</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="in">```{r}</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="fu">library</span>(tidyverse) </span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="fu">library</span>(here)</span>
-<span id="cb7-18"><a href="#cb7-18"></a></span>
-<span id="cb7-19"><a href="#cb7-19"></a></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co"># import data from data folder of repo</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a>letterboxd_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"letterboxd_250movie_reviews.csv"</span>))</span>
-<span id="cb7-22"><a href="#cb7-22"></a></span>
-<span id="cb7-23"><a href="#cb7-23"></a></span>
-<span id="cb7-24"><a href="#cb7-24"></a>letterboxd_data <span class="sc">|&gt;</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a>  <span class="fu">head</span>()</span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="in">```</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a></span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="in">```{r}</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a>letterboxd_convertStars <span class="ot">&lt;-</span>letterboxd_data <span class="sc">|&gt;</span></span>
-<span id="cb7-32"><a href="#cb7-32"></a>  <span class="fu">mutate</span>(<span class="at">numerical_rating =</span> <span class="fu">fct_recode</span>(Rating, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"★★★★★"</span>,</span>
-<span id="cb7-33"><a href="#cb7-33"></a>                                       <span class="st">"4.5"</span> <span class="ot">=</span> <span class="st">"★★★★½"</span>, </span>
-<span id="cb7-34"><a href="#cb7-34"></a>                                        <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"★★★★"</span>,</span>
-<span id="cb7-35"><a href="#cb7-35"></a>                                       <span class="st">"3.5"</span> <span class="ot">=</span> <span class="st">"★★★½"</span>,</span>
-<span id="cb7-36"><a href="#cb7-36"></a>                                        <span class="st">"3"</span> <span class="ot">=</span> <span class="st">"★★★"</span>,</span>
-<span id="cb7-37"><a href="#cb7-37"></a>                                        <span class="st">"2.5"</span> <span class="ot">=</span> <span class="st">"★★½"</span>, </span>
-<span id="cb7-38"><a href="#cb7-38"></a>                                        <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"★★"</span>,</span>
-<span id="cb7-39"><a href="#cb7-39"></a>                                       <span class="st">"1.5"</span> <span class="ot">=</span>  <span class="st">"★½"</span>,</span>
-<span id="cb7-40"><a href="#cb7-40"></a>                                        <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"★"</span>,</span>
-<span id="cb7-41"><a href="#cb7-41"></a>                                       <span class="st">".5"</span> <span class="ot">=</span> <span class="st">"½"</span>))</span>
-<span id="cb7-42"><a href="#cb7-42"></a><span class="in">```</span></span>
-<span id="cb7-43"><a href="#cb7-43"></a></span>
-<span id="cb7-46"><a href="#cb7-46"></a><span class="in">```{r}</span></span>
-<span id="cb7-47"><a href="#cb7-47"></a><span class="co">#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5, make movie titles spaced out and not dashes</span></span>
-<span id="cb7-48"><a href="#cb7-48"></a>letterboxd_clean <span class="ot">&lt;-</span> letterboxd_convertStars <span class="sc">|&gt;</span></span>
-<span id="cb7-49"><a href="#cb7-49"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(numerical_rating)) <span class="sc">|&gt;</span></span>
-<span id="cb7-50"><a href="#cb7-50"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-51"><a href="#cb7-51"></a>    <span class="at">numerical_rating =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(numerical_rating)),</span>
-<span id="cb7-52"><a href="#cb7-52"></a>    <span class="at">out_of_ten =</span> numerical_rating <span class="sc">*</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-53"><a href="#cb7-53"></a>  <span class="fu">group_by</span>(Movie) <span class="sc">|&gt;</span></span>
-<span id="cb7-54"><a href="#cb7-54"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb7-55"><a href="#cb7-55"></a>    <span class="at">avg_rating =</span> <span class="fu">mean</span>(out_of_ten, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb7-56"><a href="#cb7-56"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb7-57"><a href="#cb7-57"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(avg_rating)) <span class="sc">|&gt;</span></span>
-<span id="cb7-58"><a href="#cb7-58"></a>  <span class="fu">mutate</span>(<span class="at">movie_titles =</span> <span class="fu">str_replace_all</span>(Movie, <span class="st">"-"</span>, <span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-59"><a href="#cb7-59"></a>  <span class="fu">select</span>(movie_titles, avg_rating)</span>
-<span id="cb7-60"><a href="#cb7-60"></a><span class="in">```</span></span>
-<span id="cb7-61"><a href="#cb7-61"></a></span>
-<span id="cb7-64"><a href="#cb7-64"></a><span class="in">```{r}</span></span>
-<span id="cb7-65"><a href="#cb7-65"></a><span class="co"># preview code</span></span>
-<span id="cb7-66"><a href="#cb7-66"></a><span class="fu">head</span>(letterboxd_clean)</span>
-<span id="cb7-67"><a href="#cb7-67"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">---</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">  echo: true</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="an">code-fold:</span><span class="co"> false  </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="an">editor:</span><span class="co"> </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">  markdown: </span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">    wrap: sentence</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">---</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="fu"># Letterboxd Cleaning {-}</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="in">```{r}</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="fu">library</span>(here)</span>
+<span id="cb8-18"><a href="#cb8-18"></a></span>
+<span id="cb8-19"><a href="#cb8-19"></a></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co"># import data from data folder of repo</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>letterboxd_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"letterboxd_250movie_reviews.csv"</span>))</span>
+<span id="cb8-22"><a href="#cb8-22"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a></span>
+<span id="cb8-24"><a href="#cb8-24"></a>letterboxd_data <span class="sc">|&gt;</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a>  <span class="fu">head</span>()</span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="in">```</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a></span>
+<span id="cb8-30"><a href="#cb8-30"></a><span class="in">```{r}</span></span>
+<span id="cb8-31"><a href="#cb8-31"></a>letterboxd_convertStars <span class="ot">&lt;-</span>letterboxd_data <span class="sc">|&gt;</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a>  <span class="fu">mutate</span>(<span class="at">numerical_rating =</span> <span class="fu">fct_recode</span>(Rating, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"★★★★★"</span>,</span>
+<span id="cb8-33"><a href="#cb8-33"></a>                                       <span class="st">"4.5"</span> <span class="ot">=</span> <span class="st">"★★★★½"</span>, </span>
+<span id="cb8-34"><a href="#cb8-34"></a>                                        <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"★★★★"</span>,</span>
+<span id="cb8-35"><a href="#cb8-35"></a>                                       <span class="st">"3.5"</span> <span class="ot">=</span> <span class="st">"★★★½"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36"></a>                                        <span class="st">"3"</span> <span class="ot">=</span> <span class="st">"★★★"</span>,</span>
+<span id="cb8-37"><a href="#cb8-37"></a>                                        <span class="st">"2.5"</span> <span class="ot">=</span> <span class="st">"★★½"</span>, </span>
+<span id="cb8-38"><a href="#cb8-38"></a>                                        <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"★★"</span>,</span>
+<span id="cb8-39"><a href="#cb8-39"></a>                                       <span class="st">"1.5"</span> <span class="ot">=</span>  <span class="st">"★½"</span>,</span>
+<span id="cb8-40"><a href="#cb8-40"></a>                                        <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"★"</span>,</span>
+<span id="cb8-41"><a href="#cb8-41"></a>                                       <span class="st">".5"</span> <span class="ot">=</span> <span class="st">"½"</span>))</span>
+<span id="cb8-42"><a href="#cb8-42"></a><span class="in">```</span></span>
+<span id="cb8-43"><a href="#cb8-43"></a></span>
+<span id="cb8-46"><a href="#cb8-46"></a><span class="in">```{r}</span></span>
+<span id="cb8-47"><a href="#cb8-47"></a><span class="co">#select only movie title and rating categories, and update the review to a 1-10 scale instead of 1-5, make movie titles spaced out and not dashes</span></span>
+<span id="cb8-48"><a href="#cb8-48"></a>letterboxd_clean <span class="ot">&lt;-</span> letterboxd_convertStars <span class="sc">|&gt;</span></span>
+<span id="cb8-49"><a href="#cb8-49"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(numerical_rating)) <span class="sc">|&gt;</span></span>
+<span id="cb8-50"><a href="#cb8-50"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-51"><a href="#cb8-51"></a>    <span class="at">numerical_rating =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(numerical_rating)),</span>
+<span id="cb8-52"><a href="#cb8-52"></a>    <span class="at">out_of_ten =</span> numerical_rating <span class="sc">*</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-53"><a href="#cb8-53"></a>  <span class="fu">group_by</span>(Movie) <span class="sc">|&gt;</span></span>
+<span id="cb8-54"><a href="#cb8-54"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb8-55"><a href="#cb8-55"></a>    <span class="at">avg_rating =</span> <span class="fu">mean</span>(out_of_ten, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-56"><a href="#cb8-56"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb8-57"><a href="#cb8-57"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(avg_rating)) <span class="sc">|&gt;</span></span>
+<span id="cb8-58"><a href="#cb8-58"></a>  <span class="fu">mutate</span>(<span class="at">movie_titles =</span> <span class="fu">str_replace_all</span>(Movie, <span class="st">"-"</span>, <span class="st">" "</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-59"><a href="#cb8-59"></a>  <span class="fu">select</span>(movie_titles, avg_rating)</span>
+<span id="cb8-60"><a href="#cb8-60"></a><span class="in">```</span></span>
+<span id="cb8-61"><a href="#cb8-61"></a></span>
+<span id="cb8-64"><a href="#cb8-64"></a><span class="in">```{r}</span></span>
+<span id="cb8-65"><a href="#cb8-65"></a><span class="co"># preview code</span></span>
+<span id="cb8-66"><a href="#cb8-66"></a><span class="fu">head</span>(letterboxd_clean)</span>
+<span id="cb8-67"><a href="#cb8-67"></a></span>
+<span id="cb8-68"><a href="#cb8-68"></a><span class="co"># write_csv(letterboxd_clean, "../data/cleaned_letterboxd.csv")</span></span>
+<span id="cb8-69"><a href="#cb8-69"></a></span>
+<span id="cb8-70"><a href="#cb8-70"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
