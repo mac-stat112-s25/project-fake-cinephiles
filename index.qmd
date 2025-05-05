@@ -9,7 +9,7 @@ editor:
 
 # Final Report {.unnumbered}
 
-*For a video version of this report, please view the video here (and view slides utilized [here](https://docs.google.com/presentation/d/1GuXSzo1fz242B8SFhrMoe7ahR4lRPtUCwR6cXDFjB6I/edit?usp=sharing)).*
+*For a video version of this report, please view the video* [here](https://www.youtube.com/watch?v=5Xy6E6mYDMU)*(and view slides utilized [here](https://docs.google.com/presentation/d/1GuXSzo1fz242B8SFhrMoe7ahR4lRPtUCwR6cXDFjB6I/edit?usp=sharing)).*
 
 # Motivation {.unnumbered}
 
@@ -191,4 +191,15 @@ Future questions might include observations about if movies on Letterboxd are us
 
 # Video Report {.unnumbered}
 
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTZhjyTv_x0CqXX9l19h_gHB3UKue4ZyMZ63YzAhRUFgrPBx-ipfrAmgt1oLP713-K5F3-vdlsWd0P8/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+Video:
+
+```{r}
+library(vembedr)
+embed_url("https://www.youtube.com/watch?v=5Xy6E6mYDMU")
+```
+
+Slides:
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTZhjyTv_x0CqXX9l19h_gHB3UKue4ZyMZ63YzAhRUFgrPBx-ipfrAmgt1oLP713-K5F3-vdlsWd0P8/pubembed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+
+</iframe>
