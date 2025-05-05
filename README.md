@@ -37,4 +37,4 @@ If you remain in RStudio, you can expect to see the files organized like this:
 
 # Presentation
 
-Embed Slides Embed Video
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTZhjyTv_x0CqXX9l19h_gHB3UKue4ZyMZ63YzAhRUFgrPBx-ipfrAmgt1oLP713-K5F3-vdlsWd0P8/pubembed?start=false&loop=true&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
