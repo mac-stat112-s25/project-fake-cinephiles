@@ -1,0 +1,151 @@
+---
+execute: 
+  echo: true      # change to true to show the code
+code-fold: false  # change to true to fold the code chunks
+editor: 
+  markdown: 
+    wrap: sentence
+format: html
+---
+
+# Combining the Letterboxd and IMDb Datasets {-}
+
+A file to work on creating a cleaned dataset 
+
+# Import datasets and clean them using steps established in cleaning files {.unnumbered}
+```{r}
+library(tidyverse)
+library(stringr)
+library(fuzzyjoin)
+library(here)
+
+
+# function for standardizing title
+normalize_titles <- function(title) {
+  title |>
+    str_to_lower() |>
+    str_replace_all("[:punct:]", "") |>
+    str_replace_all("\\s+", "") |>
+    str_trim()
+}
+
+# Load the newly cleaned IMDb dataset
+imdb_cleaned <- read_csv(here("data","cleaned_imdb.csv"))
+
+# lowercase the imdb titles
+imdb_lower <- imdb_cleaned |>
+  mutate(Title = normalize_titles(Title))
+
+# --------------------------------------------------------------------
+
+# Import the Letterboxd dataset
+letterboxd_data <- read_csv(here("data","letterboxd_250movie_reviews.csv"))
+
+letterboxd_clean <- letterboxd_data |>
+  mutate(numerical_rating = fct_recode(Rating,
+    "5" = "★★★★★", "4.5" = "★★★★½", "4" = "★★★★",
+    "3.5" = "★★★½", "3" = "★★★", "2.5" = "★★½",
+    "2" = "★★", "1.5" = "★½", "1" = "★", ".5" = "½"
+  )) |>
+  filter(!is.na(numerical_rating)) |>
+  mutate(
+    numerical_rating = as.numeric(as.character(numerical_rating)),
+    out_of_ten = numerical_rating * 2
+  ) |>
+  group_by(Movie) |>
+  summarise(avg_rating = mean(out_of_ten, na.rm = TRUE)) |>
+  mutate(Title = normalize_titles(Movie)) |>
+  select(Title, avg_rating)
+
+
+```
+# Merge Files {.unnumbered}
+
+```{r}
+
+#make sure IMDB data is unique:
+imdb_lower_unique <- imdb_lower |>
+  group_by(Title) |>
+  slice_max(Rating, n = 1, with_ties = FALSE) |>  # or another criteria
+  ungroup()
+
+# Merge Letterboxd and IMDb data
+merged <- letterboxd_clean |>
+  rename(letterboxd_score = avg_rating) |>
+  left_join(imdb_lower_unique, by = "Title") |>
+  rename(imdb_score = Rating)
+
+# -------------------- Checks ----------------------------------
+
+# How many rows matched
+nrow(merged)
+
+# How many are missing IMDb scores
+sum(is.na(merged$imdb_score))
+
+# Check how many matches exist between IMDb and the rest of the data
+sum(!is.na(merged$imdb_score))
+
+# Preview of the merged data
+head(merged)
+
+# Check what cases did not find a match
+merged |> filter(is.na(imdb_score)) |> pull(Title)
+
+```
+
+```{r}
+# Manually fill in missing values
+
+# some are not present in the IMDB data! they are as follows:
+  # 8half, apursansar, lesamourai, theweepingmeadow                
+
+merged_data <- merged |> 
+  mutate(imdb_score = case_when(
+
+    Title == "evangelion3010thriceuponatime" ~ 8.0,
+    Title == "happytogether1997" ~ 7.7,
+    Title == "letrou" ~ 6.9,
+    Title == "malcolmx1992" ~ 7.7,
+    Title == "mommy2014" ~ 8.0,
+    Title == "nostalgia1983" ~ 7.8,
+    Title == "oppenheimer2023" ~ 8.3,
+    Title == "perfectdays2023" ~ 7.9,
+    Title == "ritual2000" ~ 7.5,
+    Title == "singsing2023" ~ 7.7,
+    Title == "theempirestrikesback" ~ 8.7,
+    Title == "thefather2020" ~ 8.2,
+    Title == "thehunt2012" ~ 8.3,
+    Title == "threecoloursred" ~ 8.1,
+    Title == "underground1995" ~ 8.0,
+    Title == "whiplash2014" ~ 8.5,
+    Title == "witnessfortheprosecution1957" ~ 8.4,
+    TRUE ~ imdb_score  # Keep existing scores
+  ))
+
+# -------------------- Checks ----------------------------------
+
+# How many rows matched
+nrow(merged_data)
+
+# How many are missing IMDb scores
+sum(is.na(merged_data$imdb_score))
+
+# Check how many matches exist between IMDb and the rest of the data
+sum(!is.na(merged_data$imdb_score))
+
+# Check what cases did not find a match
+merged_data |> filter(is.na(imdb_score)) |> pull(Title)
+
+```
+
+```{r}
+# explort the merged dataset for easier use later
+
+write_csv(merged_data, "../data/merged_data")
+
+```
+
+
+
+

@@ -1,0 +1,23 @@
+---
+format: html
+---
+
+# Julia - Effective Teamwork Summary {-}
+
+[4 Characteristics of an Effective Team - Harvard Business School, Kate Gibson, 02 May 2024](https://online.hbs.edu/blog/post/characteristics-of-an-effective-team)
+
+Article Summary:
+
+Today's work environment is VUCA: volitile, uncertain, complex, and ambiguous.
+In this environment teams need to be flexible.
+Teams can adapt best if they practice proactive learning, flexibility, and resilience.
+Practicing these things means there also must be clear expectations and support.
+The article highlights four key characteristics of effective teams.
+
+1\) Dynamic Teaming - Dynamic teams have a "fluid membership" which is more able to shift tasks and roles around
+
+2\) Psychological Safety - it is important to make sure the workplace is psychologically safe where everyone is comfortable asking questions, taking risks, accepting failure, helping each other, and having open conversations.
+
+3\) Diversity - teams work best when there is a variety of race, gender, culture/nationality, background/upbringing, skills, expertise, etc
+
+4\) Inclusive- value DEI (diversity, equity, and inclusion), and involve members in decision making

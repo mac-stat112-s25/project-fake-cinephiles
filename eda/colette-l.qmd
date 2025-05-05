@@ -1,0 +1,43 @@
+---
+execute: 
+  echo: false
+code-fold: true  
+editor: 
+  markdown: 
+    wrap: sentence
+format: html
+---
+# Colette's EDA {-}
+
+# Colette's EDA {-}
+
+
+```{r}
+library(tidyverse)
+library(here)
+letterboxd_data <-
+read_csv(here("data", "letterboxd_250movie_reviews.csv"))
+imdb_data <-
+read_csv(here("data", "imdb_movie_dataset.csv"))
+```
+
+```{r}
+library(DataExplorer)
+introduce(letterboxd_data)
+
+introduce(imdb_data)
+
+plot_bar(letterboxd_data)
+
+plot_histogram(imdb_data)
+
+plot_missing(letterboxd_data)
+```
+```{r}
+library(SmartEDA)
+ExpData(letterboxd_data)
+ExpData(imdb_data)
+```
+
+
+

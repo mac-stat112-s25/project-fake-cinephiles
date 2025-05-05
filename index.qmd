@@ -1,13 +1,205 @@
 ---
-title: "Report"
 execute: 
-  echo: true      # change to true to show the code
-code-fold: false  # change to true to fold the code chunks
+  echo: false      # change to true to show the code
+code-fold: true  # change to true to fold the code chunks
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
-Your report will go here.
+# Final Report {.unnumbered}
+
+*For a video version of this report, please view the video* [here](https://www.youtube.com/watch?v=5Xy6E6mYDMU)*(and view slides utilized [here](https://docs.google.com/presentation/d/1GuXSzo1fz242B8SFhrMoe7ahR4lRPtUCwR6cXDFjB6I/edit?usp=sharing)).*
+
+# Motivation {.unnumbered}
+
+Colette and Julia both utilize Letterboxd and enjoy films; we both are aware that the typical Letterboxd user tends to be a "cinephile", trending towards a movie snob rather than a casual enjoyer.
+People may be surprised by a low Letterboxd average score for a film, but we both take it with a grain of salt because Letterboxd users often do not rate movies very high despite enjoying it.
+However, is the idea of Letterboxd actually rating films lower than other rating websites true, or is this a bias we have that is only founded on the perceived culture of the app?
+It is with this in mind we hope to explore top films' ratings on Letterboxd and IMDb to compare if Letterboxd actually rates them lower than the more popular site.
+This information would help us to better understand the culture of both rating sites, and help those looking at movie ratings better understand the rating of a film in context.
+
+# Research Questions {.unnumbered}
+
+-   How do average Letterboxd scores compare to average IMDb scores for top films?
+
+-   Does Letterboxd rate films lower than IMDb?
+
+-   Determine if the perceived culture of Letterboxd actually translates to how people rate films.
+
+    We hope to communicate information about typical ratings patterns on each website to help users make more informed movie selections.
+
+# Background {.unnumbered}
+
+Letterboxd is an app popularized in recent years, made for logging movie watches and reviews.
+Letterboxd scores out of five stars.
+In the app, there's a list of the top 250 movies based on average user ratings.
+In popular culture, Letterboxd is seen as a website for people who are more serious about movies, usually being tougher critics than other internet reviewers.
+
+IMDb, standing for "The Internet Movie Database", is a website displaying information about movies, including cast, year, and trivia.
+Users can also rate movies out of 10 on IMDb.
+The website has a list of the top 1000 movies rated by users.
+IMDb is a lot more popular than Letterboxd, so reviews are usually taken as a general consensus for casual movie-watchers.
+
+# Data {.unnumbered}
+
+### Letterboxd Data {.unnumbered}
+
+[Link to Kaggle Page](https://www.kaggle.com/datasets/riyosha/letterboxd-movie-reviews-90000)
+
+This data was collected from the Letterboxd official top 250 movies page and then scraped using selenium and beautiful soup as of 4/09/24.
+It was collected by Riyosha on Kaggle, which is where we collected the data.
+The data consists of star ratings of each movie from the top 250, reviews for each rating if available, the date the movie was watched by the user, if the watch was a first-time watch or a rewatch, and the name of the movie.
+There are over 90,000 reviews overall, with about 360 reviews for each movie.
+There are both categorical and numerical measurements.
+Before we start, we need to convert the star ratings to decimals, and make each rating out of 10 to match the IMDb rating.
+There are also some NA values that need to be cleaned up.
+
+### IMDb Data {.unnumbered}
+
+[Link to Kaggle Page](https://www.kaggle.com/datasets/yusufdelikkaya/imdb-movie-dataset)
+
+This data shows the ranking of the top 1000 movies, the title of each movie, the genre, a brief plot description, director, lead actors, year of release, runtime, rating out of ten, and user votes (how many users watched/rated).
+This data was last updated 6 months ago.
+The data was collected from the IMDb website, and licensed through public domain, and posted to Kaggle, where we found the data.
+There are 1000 data points, one for each movie.
+All variables except rating are categorical.
+We have to clean movie titles in order to match and join them with the Letterboxd data, and select only the needed variables and data points to analyze this data.
+
+# Findings {.unnumbered}
+
+### LetterBoxd Data
 
 ```{r}
-# this is a test code
+# import relevant packages
+library(tidyverse)
+library(here)
+
+# load the newly imdb dataset which has been cleaned 
+#|Fig-alt: "A visualization of a barplot representing the distribution of IMDb movie ratings, with ratings 1-10 on the x axis and number of movies on the y axis"
+imdb_cleaned <-read_csv(here("data","cleaned_imdb.csv"))
+
+    imdb_cleaned |>
+      ggplot(aes(x = Rating)) +
+      geom_bar(fill = "#69b3a2") +
+      labs(
+        title = "Distribution of IMDb Movie Ratings",
+        x = "Rating",
+        y = "Number of Movies",
+        caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt • 2025"
+      ) +
+      theme_minimal()
 ```
 
+### IMDb Data
+
+```{r}
+# import relevant packages
+library(tidyverse)
+library(here)
+
+# load the cleaned letterboxd dataset 
+#|Fig-alt: "A visualization of a barplot representing the distribution of letterboxd movie ratings, with ratings 1-10 on the x axis and number of movies on the y axis"
+letterboxd_clean <-read_csv(here("data","cleaned_letterboxd.csv"))
+    
+  letterboxd_clean %>%
+  ggplot(aes(x = avg_rating)) +
+  geom_histogram(binwidth = 0.5, fill = "#69b3a2", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Letterboxd Top 250 Movie Ratings",
+    x = "Rating",
+    y = "Number of Movies",
+    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt • 2025"
+
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, 10, 1)) # Adjust x-axis breaks
+```
+
+### Merged Data
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(showtext)
+library(plotly)
+library(ggiraph)
+library(dplyr)
+library(stringr)
+library(here)
+
+dataset <- read_csv(here("data","final_dataset.csv"))
+
+#| fig-height: 5
+#| fig-width: 6
+#| fig-alt: An interactive scatterplot of the top 250 films on letterboxd, with letterboxd rating on the y axis and imdb rating on the x axis. It is a roughly linear relationship between the two variables, with some outliers. 
+#| fig-cap: Comparing IMDb and Letterboxd Film Ratings - Data from IMDb and Letterboxd - Made by Colette Lawler and Julia Prewitt
+
+
+font_add_google("Lato", "lato")
+showtext_auto()
+
+viz <- ggplot(dataset, aes(x = imdb_score, y = letterboxd_score, tooltip = Title)) +
+  geom_jitter_interactive(alpha = 0.6, color = "#4a4a4a", size = 2) +
+  geom_smooth_interactive(method = "lm", color = "#e63946", se = FALSE, size = 1.2) +
+  labs(
+    title = "Comparing IMDb and Letterboxd Film Ratings",
+    subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
+    x = "IMDb Score",
+    y = "Letterboxd Score",
+    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt • 2025"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", color = "#222222"),
+    plot.subtitle = element_text(size = 14, margin = margin(b = 10), color = "#555555"),
+    axis.title = element_text(size = 13, face = "bold"),
+    axis.text = element_text(size = 11, color = "#333333"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "#dddddd", size = 0.3),
+    plot.caption = element_text(size = 9, color = "#777777", margin = margin(t = 10))
+  )
+
+
+girafe(ggobj = viz)
+
+```
+
+Overall, the data gave a pretty linear conclusion: as Letterboxd scores increase, IMDb scores also tend to increase.
+There are a few outliers (that are usually rated much lower on Letterboxd than on IMDb) to this relationship.
+Most reviews were pretty positive on both ends, however, considering that the Letterboxd data we took from was the top-rated 250 movies on the site.
+The relationship is linear to a pretty mild extent, with Letterboxd ratings usually being more stagnant than IMDb ones for the movies we observed.
+We were a little surprised how similar most of the reviews seem to be on both sites, considering the cultural reputation of Letterboxd and Letterboxd users.
+
+# Conclusions / Big Picture {.unnumbered}
+
+For the most part, if a movie is good, both popular and more critical audiences will rate it accordingly.
+Letterboxd users, for specific movies, seem to be tougher critics, but given the increasing popularity of the website and how many users rate movies highly, the results mostly align with IMDb opinions.
+This all seems to prove that the actual ratings of Letterboxd are usually preceded by its reputation, which is, for the most part, pretty untrue.
+
+# Limitations and Future Work {.unnumbered}
+
+It was a struggle trying to merge the Letterboxd and IMDb data, since there were a lot of movies in the Letterboxd top 250 dataset that didn't have matches in the IMDb dataset, and vice versa, which didn't seem to make a lot of sense.
+For example, I looked up all four of my top four movies in the IMDb dataset, three of which are in the Letterboxd top 250, and did not find them.
+Additionally, the Letterboxd data didn't guarantee the average review on the website for each movie, since it only took around 360 reviews for each movie.
+For example, we noticed "Parasite", one of the highest-rated movies on Letterboxd with a 4.5/5 rating had very low ratings in the data.
+This is the biggest outlier.
+This is a limitation of the data itself that reflected in our viz and analysis.
+Removing NA values also might have constricted our dataset and analysis.
+Future questions might include observations about if movies on Letterboxd are usually rated higher or lower based on rewatch, the average ratings of individual Letterboxd and IMDb users, and high-rated movies that are most frequently on Letterboxd users top four (a place on a profile where users can display their favorite four movies).
+
+# Video Report {.unnumbered}
+
+Video:
+
+```{r}
+library(vembedr)
+embed_url("https://www.youtube.com/watch?v=5Xy6E6mYDMU")
+```
+
+Slides:
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTZhjyTv_x0CqXX9l19h_gHB3UKue4ZyMZ63YzAhRUFgrPBx-ipfrAmgt1oLP713-K5F3-vdlsWd0P8/pubembed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+
+</iframe>

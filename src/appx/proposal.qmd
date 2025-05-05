@@ -1,5 +1,51 @@
 ---
 title: "Proposal"
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
-Your proposal will go here.
+# Lights, Camera, Action!: Comparing Movie Reviewing Website Ratings {.unnumbered}
+
+Members: Colette Lawler, Julia Prewitt
+
+# Description of Project: {.unnumbered}
+
+We'll be examining how IMDB ratings for the top 1000 movies compare to
+the Letterboxd top 250, another movie review website to analyze how the
+two websites compare.
+
+# Reason for Selecting this Project: {.unnumbered}
+
+We both found out we have letterboxd accounts and are aware of the very
+specific cultures associated with each site. We found data for both IMDB
+and Letterboxdand thought it would be interesting if we could map this
+information using visualizations.
+
+# Implementation Plan {.unnumbered}
+
+Project Proposal- Toget Case Study Teamwork Reading Clean IMDB Data
+Explore IMDB Data Clean Letterboxd Data Explore Letterboxd Data Join
+data Explore joined data to compare Make visualizatinos of data
+Presentations Final Edits
+
+a rough implementation and responsibility plan, ie, what needs to be
+accomplished and who will do what when. Think about the list of
+deliverables when building the plan. The plan should be presented in a
+table format.
+
+| Task | Assigned To | Due Date |
+|----|----|----|
+| Project Proposal | Both | 4/9 |
+| Case Study | Both | 4/9 |
+| Teamwork Reading | Both, Indiv. | 4/11 |
+| Clarify research question, background, data collection, | Julia | 4/11 |
+| EDA - Individual | Both | 4/14 |
+| Join and Explore data | Both | 4/16 |
+| Decide on appropriate viz | Both | 4/18 |
+| Create viz | Both | 4/21 |
+| Write up data insights/conclusions | Colette | 4/23 |
+| Explain limitations and future work | Julia | 4/25 |
+| Presentation Slides | Both | 4/28-30 |
+| Final Edits Done | Both | 5/2 |
+| Create Presentation video | Both | 5/5 |

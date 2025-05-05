@@ -1,0 +1,192 @@
+---
+execute: 
+  echo: true      # change to true to show the code
+code-fold: true  # change to true to fold the code chunks
+editor: 
+  markdown: 
+    wrap: sentence
+format: html
+---
+# Julia's EDA {-}
+# Exploring the IMDb Data {.unnumbered}
+
+```{r}
+
+# import relevant packages
+library(tidyverse)
+library(here)
+
+# load the newly imdb dataset which has been cleaned 
+imdb_cleaned <-read_csv(here("data","cleaned_imdb.csv"))
+
+
+```
+
+Research Questions:
+
+-   What are the top 10 highest rated movies?
+
+    ```{r}
+
+    top_10_movies <- imdb_cleaned |>
+      arrange(desc(Rating)) |>
+      slice_head(n = 10)
+
+    top_10_movies
+
+    ```
+
+-   What are the bottom 10 lowest rated movies?
+
+    ```{r}
+    bottom_10_movies <- imdb_cleaned |>
+      arrange(Rating) |>
+      slice_head(n = 10)
+
+    bottom_10_movies
+
+
+    ```
+
+-   What is the distribution of scores like (how many films for each score?)?
+
+    ```{r}
+
+    imdb_cleaned |>
+      ggplot(aes(x = Rating)) +
+      geom_bar(fill = "#69b3a2") +
+      labs(
+        title = "Distribution of IMDb Movie Ratings",
+        x = "Rating",
+        y = "Number of Movies"
+      ) +
+      theme_minimal()
+    ```
+
+# Exploring the Letterboxd Data {.unnumbered}
+```{r}
+# use cleaning steps from letterboxdCleaning.qmd:
+# import relevant packages
+library(tidyverse)
+
+# import data
+letterboxd_data <- read_csv(here("data", "letterboxd_250movie_reviews.csv"))
+
+letterboxd_convertStars <-letterboxd_data |>
+  mutate(numerical_rating = fct_recode(Rating, "5" = "★★★★★",
+                                       "4.5" = "★★★★½", 
+                                        "4" = "★★★★",
+                                       "3.5" = "★★★½",
+                                        "3" = "★★★",
+                                        "2.5" = "★★½", 
+                                        "2" = "★★",
+                                       "1.5" =  "★½",
+                                        "1" = "★",
+                                       ".5" = "½"))
+
+letterboxd_clean <- letterboxd_convertStars |>
+  filter(!is.na(numerical_rating)) |>
+  mutate(
+    numerical_rating = as.numeric(as.character(numerical_rating)),
+    out_of_ten = numerical_rating *2) |>
+  group_by(Movie) |>
+  summarise(
+    avg_rating = mean(out_of_ten, na.rm = TRUE),
+  ) |> 
+arrange(desc(avg_rating))
+
+```
+
+Research Questions:
+
+-   What are the top 10 highest rated movies?
+
+    ```{r}
+
+    top_10_movies <- letterboxd_clean |>
+      arrange(desc(avg_rating)) |>
+      slice_head(n = 10)
+
+    top_10_movies
+
+    ```
+
+-   What are the bottom 10 lowest rated movies (of the top 250)?
+
+    ```{r}
+    bottom_10_movies <- letterboxd_clean |>
+      arrange(avg_rating) |>
+      slice_head(n = 10)
+
+    bottom_10_movies
+
+
+    ```
+
+-   What is the distribution of scores like (how many films for each score?)?
+
+    ```{r}
+
+letterboxd_clean %>%
+  ggplot(aes(x = avg_rating)) +
+  geom_histogram(binwidth = 0.5, fill = "#69b3a2", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Letterboxd Top 250 Movie Ratings",
+    x = "Rating",
+    y = "Number of Movies"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, 10, 1)) # Adjust x-axis breaks
+
+    ```
+
+# Exploring the Merged Data {.unnumbered}
+
+```{r}
+# Import the merged dataset (created in the mergingData file!)
+
+# import data
+merged_data <- read_csv(here("data", "merged_data"))
+
+# clean of the 4 NA values
+merged_data <- merged_data |>
+  drop_na()
+
+```
+Exploring the data:
+```{r}
+head(merged_data)
+
+str(merged_data)
+
+summary(merged_data)
+```
+
+```{r}
+# Distribution of IMDb and Letterboxd scores
+ggplot(merged_data, aes(x = imdb_score)) + 
+  geom_histogram(binwidth = 0.5, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of IMDb Scores")
+
+ggplot(merged_data, aes(x = letterboxd_score)) + 
+  geom_histogram(binwidth = 0.5, fill = "green", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Letterboxd Scores")
+
+# relationshihp
+ggplot(merged_data, aes(x = imdb_score, y = letterboxd_score)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "IMDb vs Letterboxd Scores")
+
+# Boxplot to check for outliers in scores
+ggplot(merged_data, aes(y = imdb_score)) + 
+  geom_boxplot(fill = "lightblue", color = "black") + 
+  labs(title = "Boxplot of IMDb Scores")
+
+ggplot(merged_data, aes(y = letterboxd_score)) + 
+  geom_boxplot(fill = "lightgreen", color = "black") + 
+  labs(title = "Boxplot of Letterboxd Scores")
+
+
+```
+

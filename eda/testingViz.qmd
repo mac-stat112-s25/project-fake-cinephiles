@@ -1,0 +1,180 @@
+---
+format: html
+execute: 
+  echo: false
+code-fold: false  
+editor: 
+  markdown: 
+    wrap: sentence
+---
+# Testing Visualizations {-}
+
+A file for testing different visualizations of the data
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(showtext)
+library(plotly)
+library(ggiraph)
+library(here)
+
+merged_data <- read_csv(here("data", "merged_data"))
+```
+
+```{r}
+# Editing the data to have cleaner movie titles
+
+library(dplyr)
+library(stringr)
+library(tibble)
+
+# Define the formatting function for fallback titles
+format_title <- function(title) {
+  title %>%
+    str_replace_all("([a-z])([A-Z])", "\\1 \\2") %>%  # camelCase to spaced
+    str_replace_all("_", " ") %>%                     # underscores to space
+    str_replace_all("-", " ") %>%                     # dashes to space
+    str_to_title() %>%                                # capitalize each word
+    str_squish()                                      # trim extra spaces
+}
+
+# Named vector for mapping cleaned titles to display titles
+title_lookup <- c(
+  napoleon = "Napoleon",
+  network = "Network",
+  nightsofcabiria = "Nights of Cabiria",
+  nocountryforoldmen = "No Country for Old Men",
+  nobodyknows = "Nobody Knows",
+  nostalgia1983 = "Nostalgia",
+  oldboy = "Oldboy",
+  openingnight = "Opening Night",
+  oppenheimer2023 = "Oppenheimer",
+  papermoon = "Paper Moon",
+  patherpanchali = "Pather Panchali",
+  perfectdays2023 = "Perfect Days",
+  prisoners = "Prisoners",
+  psycho = "Psycho",
+  ragingbull = "Raging Bull",
+  raisetheredlantern = "Raise the Red Lantern",
+  redbeard = "Red Beard",
+  rififi = "Rififi",
+  ritual2000 = "The Ritual",
+  samurairebellion = "Samurai Rebellion",
+  sanshothebailiff = "Sansho the Bailiff",
+  savingprivateryan = "Saving Private Ryan",
+  secretslies = "Secrets & Lies",
+  sherlockjr = "Sherlock Jr.",
+  singsing2023 = "Sing Sing",
+  singinintherain = "Singin' in the Rain",
+  spidermanacrossthespiderverse = "Spider-Man: Across the Spider-Verse",
+  spidermanintothespiderverse = "Spider-Man: Into the Spider-Verse",
+  sweetsmellofsuccess = "Sweet Smell of Success",
+  swinggirls = "Swing Girls",
+  tampopo = "Tampopo",
+  terminator2judgmentday = "Terminator 2: Judgment Day",
+  thebestofyouth = "The Best of Youth",
+  thebridgeontheriverkwai = "The Bridge on the River Kwai",
+  thecelebration = "The Celebration",
+  thecranesareflying = "The Cranes Are Flying",
+  thedarkknight = "The Dark Knight",
+  thedeparted = "The Departed",
+  theempirestrikesback = "The Empire Strikes Back",
+  thefaceofanother = "The Face of Another",
+  thefather2020 = "The Father",
+  thefifthseal = "The Fifth Seal",
+  thefirstslamdunk = "The First Slam Dunk",
+  thegrandbudapesthotel = "The Grand Budapest Hotel",
+  theholdovers = "The Holdovers",
+  thehumanconditioninogreaterlove = "The Human Condition I: No Greater Love",
+  thehumanconditioniiroadtoeternity = "The Human Condition II: Road to Eternity",
+  thehumanconditioniiiasoldiersprayer = "The Human Condition III: A Soldier's Prayer",
+  thehunt2012 = "The Hunt",
+  theirongiant = "The Iron Giant",
+  thekingofcomedy = "The King of Comedy",
+  thelifeanddeathofcolonelblimp = "The Life and Death of Colonel Blimp",
+  thelionking = "The Lion King",
+  thelordoftheringsthefellowshipofthering = "The Lord of the Rings: The Fellowship of the Ring",
+  thelordoftheringsthereturnoftheking = "The Lord of the Rings: The Return of the King",
+  thelordoftheringsthetwotowers = "The Lord of the Rings: The Two Towers",
+  theprestige = "The Prestige",
+  thesacrifice = "The Sacrifice",
+  theshawshankredemption = "The Shawshank Redemption",
+  thesilenceofthelambs = "The Silence of the Lambs",
+  thetaleoftheprincesskaguya = "The Tale of the Princess Kaguya",
+  thething = "The Thing",
+  thetreasureofthesierramadre = "The Treasure of the Sierra Madre",
+  thetrumanshow = "The Truman Show",
+  theweepingmeadow = "The Weeping Meadow",
+  theyounggirlsofrochefort = "The Young Girls of Rochefort",
+  threecoloursred = "Three Colors: Red",
+  throneofblood = "Throne of Blood",
+  tobeornottobe = "To Be or Not to Be",
+  umbertod = "Umberto D.",
+  underground1995 = "Underground",
+  warandpeace = "War and Peace",
+  werckmeisterharmonies = "Werckmeister Harmonies",
+  whereisthefriendshouse = "Where Is the Friend's House?",
+  whiplash2014 = "Whiplash",
+  whosafraidofvirginiawoolf = "Who's Afraid of Virginia Woolf?",
+  wildstrawberries = "Wild Strawberries",
+  winterlight = "Winter Light",
+  witnessfortheprosecution1957 = "Witness for the Prosecution"
+)
+
+#Apply formatting
+nice_data <- merged_data %>%
+  mutate(
+    # Create a lowercase stripped version to match title_lookup keys
+    lookup_key = str_replace_all(str_to_lower(Title), "[^a-z]", ""),
+    
+    # Use manual mapping if available, otherwise auto-format the original Title
+    Title = if_else(
+      !is.na(title_lookup[lookup_key]),
+      title_lookup[lookup_key],
+      format_title(Title)
+    )
+  ) %>%
+  select(-lookup_key)  # remove helper column
+
+
+```
+
+
+```{r}
+#| fig-height: 5
+#| fig-width: 6
+font_add_google("Lato", "lato")
+showtext_auto()
+
+viz <- ggplot(nice_data, aes(x = imdb_score, y = letterboxd_score, tooltip = Title)) +
+  geom_jitter_interactive(alpha = 0.6, color = "#4a4a4a", size = 2) +
+  geom_smooth_interactive(method = "lm", color = "#e63946", se = FALSE, size = 1.2) +
+  labs(
+    title = "Comparing IMDb and Letterboxd Film Ratings",
+    subtitle = "Each point is one of the top 250 films, and the line is a linear model illustrating their relationship.",
+    x = "IMDb Score",
+    y = "Letterboxd Score",
+    caption = "Source: Kaggle • Visualization by Colette Lawler & Julia Prewitt, Created 2025"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", color = "#222222"),
+    plot.subtitle = element_text(size = 14, margin = margin(b = 10), color = "#555555"),
+    axis.title = element_text(size = 13, face = "bold"),
+    axis.text = element_text(size = 11, color = "#333333"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "#dddddd", size = 0.3),
+    plot.caption = element_text(size = 9, color = "#777777", margin = margin(t = 10))
+  )
+
+
+girafe(ggobj = viz)
+
+```
+
+```{r}
+# Step 5: save cleaned data to csv to save space on device
+write_csv(nice_data, "../data/final_dataset.csv")
+```
